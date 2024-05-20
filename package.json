@@ -6,7 +6,10 @@
   "repository": "git@github.com:oprokopieva382/notes_backend.git",
   "author": "Oksana(KsyFate) <oprokopieva382@gmail.com>",
   "license": "MIT",
-  "private": true,
+  "scripts": {
+    "dev": "yarn nodemon --inspect dist/index.js",
+    "watch": "tsc -w"
+  },
   "dependencies": {
     "express": "^4.19.2"
   },
