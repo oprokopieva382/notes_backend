@@ -14,13 +14,16 @@ export const ConnectMongoDB = async () => {
     client = new MongoClient(SETTINGS.MONGO_DB_ATLAS);
     await client.connect();
     console.log("Connected to MongoDB Atlas");
-    db = client.db(SETTINGS.DB_NAME);
+
+    db = client.db(SETTINGS.DB_NAME)
+    usersCollection = db.collection(SETTINGS.USERS_COLLECTION);
+    notesCollection = db.collection(SETTINGS.NOTES_COLLECTION);
 
     return true;
   } catch (error) {
     console.log("Failed to connect MongoDB:", error);
     await client.close();
-    
+
     return false;
   }
 };
