@@ -7,6 +7,7 @@ export const SETTINGS = {
   DB_NAME: process.env.DB_NAME || "",
   NOTES_COLLECTION: process.env.NOTES_COLLECTION || "",
   USERS_COLLECTION: process.env.USERS_COLLECTION || "",
+  ADMIN_AUTH: process.env.ADMIN_AUTH || "",
   PATH: {
     USERS: "/users",
     NOTES: "/notes",
