@@ -2,7 +2,7 @@ import { ApiError } from "../helper/api_error";
 import { NextFunction, Request, Response } from "express";
 import { formatResponse } from "../utils/responseFormatter";
 
-export const errorMiddleware = (
+export const errorHandlerMiddleware = (
   err: Error | ApiError,
   req: Request,
   res: Response,

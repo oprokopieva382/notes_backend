@@ -8,8 +8,8 @@ export class ApiError extends Error {
     this.errors = errors;
   }
 
-  static UnauthorizedError() {
-    return new ApiError(401, "User is not authorized");
+  static UnauthorizedError(message: string, errors: any[] = []) {
+    return new ApiError(401, message, errors);
   }
 
   static BadRequestError(message: string, errors: any[] = []) {
