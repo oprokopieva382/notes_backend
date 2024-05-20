@@ -1,1 +1,2 @@
-export { usersQuery } from "./users_query";
+export { usersQuery } from "./usersQuery";
+export { notesQuery } from "./notesQuery";
