@@ -19,7 +19,12 @@ export const notesService = {
     const createdNote = await notesRepository.findNote(insertedNoteId);
     return createdNote;
   },
-  //   async removeUser(id: string) {
-  //     return await usersRepository.removeUser(id);
-  //   },
+
+  async removeNote(id: string) {
+    return await notesRepository.removeNote(id);
+  },
+
+  async updateNote(id: string, inputsData: NoteInputModel) {
+    return await notesRepository.updateNote(id, inputsData);
+  },
 };
