@@ -1,0 +1,1 @@
+export {emailAdapter} from "./emailAdapter"

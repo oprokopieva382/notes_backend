@@ -8,7 +8,7 @@ import { errorHandlerMiddleware } from "./middlewares";
 export const app = express();
 
 app.use(express.json());
-//app.use(SETTINGS.PATH.AUTH, authRouter)
+app.use(SETTINGS.PATH.AUTH, authRouter)
 app.use(SETTINGS.PATH.USERS, usersRouter);
 app.use(SETTINGS.PATH.NOTES, notesRouter)
 app.use(errorHandlerMiddleware);
