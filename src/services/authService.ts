@@ -40,7 +40,7 @@ export const authService = {
 
     await emailAdapter.sendEmail(
       email,
-      `${SETTINGS.API_URL}sign-up-email-confirmation/${code}`
+      `${SETTINGS.API_URL}auth/sign-up-email-confirmation/${code}`
     );
 
     return newUser;
@@ -49,11 +49,28 @@ export const authService = {
   async confirmSignUp(code: string) {
     const user = await authRepository.findUserByCode(code);
     if (!user) {
-      return ApiError.BadRequestError("Confirmation failed", [
+      throw ApiError.BadRequestError("Confirmation failed", [
         `Can't confirm user registration, no user found in the system`,
       ]);
     }
 
     return authRepository.confirmUser(user._id);
+  },
+
+  async emailResending(data: UserInputModel) {
+    const user = await authRepository.findUserByEmail(data.email);
+    console.log(user);
+    if (!user) {
+      throw ApiError.BadRequestError("Confirmation failed", [
+        `Can't confirm user registration, no user found in the system`,
+      ]);
+    }
+
+    const newCode = randomUUID();
+    await authRepository.updateConfirmationCode(user._id, newCode);
+
+    emailAdapter.sendEmail(data.email, newCode);
+
+    return user;
   },
 };

@@ -11,7 +11,6 @@ export const SETTINGS = {
   REGISTRATION_EMAIL: process.env.REGISTRATION_EMAIL || "",
   REGISTRATION_PASS: process.env.REGISTRATION_PASS || "",
   API_URL: process.env.API_URL || "",
-  CLIENT_URL: process.env.CLIENT_URL || "",
   PATH: {
     USERS: "/users",
     NOTES: "/notes",

@@ -24,4 +24,15 @@ export const authRepository = {
     );
     return user;
   },
+
+  async updateConfirmationCode(
+    id: ObjectId,
+    code: string
+  ): Promise<Boolean> {
+    const user = await usersCollection.updateOne(
+      { _id: id },
+      { $set: { "emailConfirmation.confirmationCode": code } }
+    );
+    return !!user.modifiedCount;
+  },
 };

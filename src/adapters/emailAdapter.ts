@@ -17,8 +17,8 @@ export const emailAdapter = {
       subject: "Action Required - Confirm your email address",
       html: `
         <h1>Thank you for your registration with Notes Manager</h1>
-        <p>To finish your registration with Notes Manager use link below:
-        <a href="${link}">${link} complete registration</a></p>
+        <p>To finish your registration with Notes Manager use this link:
+        <a href="${link}">${link}</a></p>
       `,
     });
     return !!emailInfo
