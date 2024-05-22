@@ -4,7 +4,7 @@ import { notesController } from "./notesController";
 export const notesRouter = Router()
 
 notesRouter.get("/", notesController.getNotes);
-notesRouter.get("/id", () => {});
-notesRouter.post("/", () => {});
+notesRouter.get("/:id", notesController.getNoteById);
+notesRouter.post("/", notesController.createNote);
 notesRouter.put("/:id", () => {});
 notesRouter.delete("/:id", () => {});

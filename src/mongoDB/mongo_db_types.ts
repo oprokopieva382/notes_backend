@@ -12,7 +12,7 @@ export type NoteMongoDBType = {
   _id: ObjectId;
   userId: string;
   title: string;
-  isDone: string;
+  isDone?: boolean;
   createdAt: string;
 };
 
