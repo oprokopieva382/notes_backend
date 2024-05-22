@@ -1,5 +1,5 @@
 import { userDTO } from "../DTO/user_dto";
-import { usersCollection } from "../mongoDB/mongo_db_atlas";
+import { usersCollection } from "../mongoDB";
 
 export const usersQuery = {
   async getUsers() {

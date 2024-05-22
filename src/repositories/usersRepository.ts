@@ -6,6 +6,7 @@ export const usersRepository = {
   async createUser(newUser: UserMongoDBType) {
     return await usersCollection.insertOne(newUser);
   },
+  
   async findUser(userId: ObjectId): Promise<UserMongoDBType | null> {
     return await usersCollection.findOne({
       _id: userId,
