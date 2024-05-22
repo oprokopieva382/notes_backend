@@ -59,7 +59,6 @@ export const authService = {
 
   async emailResending(data: UserInputModel) {
     const user = await authRepository.findUserByEmail(data.email);
-    console.log(user);
     if (!user) {
       throw ApiError.BadRequestError("Confirmation failed", [
         `Can't confirm user registration, no user found in the system`,
@@ -70,6 +69,27 @@ export const authService = {
     await authRepository.updateConfirmationCode(user._id, newCode);
 
     emailAdapter.sendEmail(data.email, newCode);
+
+    return user;
+  },
+
+  async login(data: UserInputModel) {
+    const user = await authRepository.findUserByEmail(data.email);
+    if (!user) {
+      throw ApiError.BadRequestError("Login failed", [
+        `No user found, can't login. Check your information or sign up first`,
+      ]);
+    }
+
+    const verifyPassword = bcryptService.verifyPassword(
+      data.password,
+      user.password
+    );
+    if (!verifyPassword) {
+      throw ApiError.UnauthorizedError("Login failed", [
+        `You are not authorized to login. Password is not match`,
+      ]);
+    }
 
     return user;
   },

@@ -1,11 +1,19 @@
 import { ObjectId } from "mongodb";
 
+type ExpirationDate = Date;
+
+type ConfirmationEmailType = {
+  confirmationCode: string;
+  expirationDate: ExpirationDate;
+  isConfirmed: boolean;
+};
 export type UserMongoDBType = {
   _id: ObjectId;
   login: string;
   password: string;
   email: string;
   createdAt: string;
+  emailConfirmation: ConfirmationEmailType;
 };
 
 export type NoteMongoDBType = {
@@ -15,4 +23,3 @@ export type NoteMongoDBType = {
   isDone?: boolean;
   createdAt: string;
 };
-

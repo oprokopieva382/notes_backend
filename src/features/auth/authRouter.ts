@@ -3,7 +3,7 @@ import { authController } from "./authController";
 
 export const authRouter = Router()
 
-authRouter.post("/login", () => {});
+authRouter.post("/login", authController.login);
 authRouter.post("/logout", () => {});
 authRouter.post("/sign-up", authController.signUp);
 authRouter.get("/sign-up-email-confirmation/:code", authController.emailConfirmation);
