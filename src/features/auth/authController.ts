@@ -78,7 +78,26 @@ export const authController = {
           "Authorization failed. Can't find user with such id",
         ]);
       }
-       formatResponse(res, 200, me, "User authorized");
+      formatResponse(res, 200, me, "User authorized");
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  refreshToken: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+    
+        console.log("req.userId", req.userId!);
+    
+      const token = req.cookies.refreshToken;
+      const { newAccessToken, newRefreshToken } =
+        await authService.refreshToken(req.userId, token);
+
+      res.cookie("refreshToken", newRefreshToken, {
+        httpOnly: true,
+        secure: true,
+      });
+      formatResponse(res, 200, newAccessToken, "New access token sent");
     } catch (error) {
       next(error);
     }
