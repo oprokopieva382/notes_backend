@@ -1,11 +1,14 @@
 import { Router } from "express";
 import { authController } from "./authController";
-import { userAuthorizationMiddleware, validateRefreshToken } from "../../middlewares";
+import {
+  userAuthorizationMiddleware,
+  validateRefreshToken,
+} from "../../middlewares";
 
 export const authRouter = Router();
 
 authRouter.post("/login", authController.login);
-authRouter.post("/logout", () => {});
+authRouter.post("/logout", validateRefreshToken, authController.logout);
 authRouter.post("/sign-up", authController.signUp);
 authRouter.get(
   "/sign-up-email-confirmation/:code",

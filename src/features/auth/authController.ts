@@ -86,9 +86,6 @@ export const authController = {
 
   refreshToken: async (req: Request, res: Response, next: NextFunction) => {
     try {
-    
-        console.log("req.userId", req.userId!);
-    
       const token = req.cookies.refreshToken;
       const { newAccessToken, newRefreshToken } =
         await authService.refreshToken(req.userId, token);
@@ -98,6 +95,17 @@ export const authController = {
         secure: true,
       });
       formatResponse(res, 200, newAccessToken, "New access token sent");
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  logout: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const token = req.cookies.refreshToken;
+
+      await authService.logout(token);
+      formatResponse(res, 204, {}, "User logout successfully");
     } catch (error) {
       next(error);
     }

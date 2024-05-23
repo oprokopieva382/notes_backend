@@ -113,4 +113,8 @@ export const authService = {
 
     return { newAccessToken, newRefreshToken };
   },
+
+  async logout(refreshToken: string) {
+    return await this.addTokenToBlackList(refreshToken);
+  },
 };
