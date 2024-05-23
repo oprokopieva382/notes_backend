@@ -4,6 +4,7 @@ import { formatResponse } from "../../utils/responseFormatter";
 import { ApiError } from "../../helper/api_error";
 import { userDTO } from "../../DTO/user_dto";
 import { jwtService } from "../../application";
+import { usersQuery } from "../../query_objects";
 
 export const authController = {
   signUp: async (req: Request, res: Response, next: NextFunction) => {
@@ -64,6 +65,20 @@ export const authController = {
       });
 
       formatResponse(res, 201, accessToken, "User logged in successfully");
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  me: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const me = await usersQuery.getUserById(req.userId);
+      if (!me) {
+        throw ApiError.UnauthorizedError("Not authorized", [
+          "Authorization failed. Can't find user with such id",
+        ]);
+      }
+       formatResponse(res, 200, me, "User authorized");
     } catch (error) {
       next(error);
     }

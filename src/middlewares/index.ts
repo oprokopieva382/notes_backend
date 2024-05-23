@@ -1,2 +1,3 @@
-export { errorHandlerMiddleware } from "./error_handler_middleware";
-export { authAdminMiddleware } from "./auth_Admin_Middleware";
+export { errorHandlerMiddleware } from "./errorHandlerMiddleware";
+export { authAdminMiddleware } from "./authAdminMiddleware";
+export { userAuthorizationMiddleware } from "./userAuthorizationMiddleware";
