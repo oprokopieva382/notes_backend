@@ -23,3 +23,9 @@ export type NoteMongoDBType = {
   isDone?: boolean;
   createdAt: string;
 };
+
+export type TokenMongoDBType = {
+  _id: ObjectId;
+  token: string;
+  createdAt: string;
+};
