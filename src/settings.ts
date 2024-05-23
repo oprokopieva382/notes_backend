@@ -7,6 +7,7 @@ export const SETTINGS = {
   DB_NAME: process.env.DB_NAME || "",
   NOTES_COLLECTION: process.env.NOTES_COLLECTION || "",
   USERS_COLLECTION: process.env.USERS_COLLECTION || "",
+  BLACK_LIST_TOKEN_COLLECTION: process.env.BLACK_LIST_TOKEN_COLLECTION || "",
   ADMIN_AUTH: process.env.ADMIN_AUTH || "",
   REGISTRATION_EMAIL: process.env.REGISTRATION_EMAIL || "",
   REGISTRATION_PASS: process.env.REGISTRATION_PASS || "",

@@ -1,5 +1,9 @@
 import { Collection, Db, MongoClient } from "mongodb";
-import { NoteMongoDBType, UserMongoDBType } from "./mongo_db_types";
+import {
+  NoteMongoDBType,
+  TokenMongoDBType,
+  UserMongoDBType,
+} from "./mongo_db_types";
 import { SETTINGS } from "../settings";
 
 let client: MongoClient = {} as MongoClient;
@@ -8,6 +12,8 @@ export let notesCollection: Collection<NoteMongoDBType> =
   {} as Collection<NoteMongoDBType>;
 export let usersCollection: Collection<UserMongoDBType> =
   {} as Collection<UserMongoDBType>;
+export let tokenBlackListCollection: Collection<TokenMongoDBType> =
+  {} as Collection<TokenMongoDBType>;
 
 export const ConnectMongoDB = async () => {
   try {
@@ -15,9 +21,12 @@ export const ConnectMongoDB = async () => {
     await client.connect();
     console.log("Connected to MongoDB Atlas");
 
-    db = client.db(SETTINGS.DB_NAME)
+    db = client.db(SETTINGS.DB_NAME);
     usersCollection = db.collection(SETTINGS.USERS_COLLECTION);
     notesCollection = db.collection(SETTINGS.NOTES_COLLECTION);
+    tokenBlackListCollection = db.collection(
+      SETTINGS.BLACK_LIST_TOKEN_COLLECTION
+    );
 
     return true;
   } catch (error) {

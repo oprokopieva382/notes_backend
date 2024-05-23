@@ -49,7 +49,7 @@ export const notesController = {
     next: NextFunction
   ) => {
     try {
-      const result = await notesService.createNote(req.body);
+      const result = await notesService.createNote(req.body, req.userId);
 
       if (!result) {
         throw ApiError.NotFoundError(`Note can't be created`);

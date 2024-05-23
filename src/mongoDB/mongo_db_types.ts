@@ -7,6 +7,7 @@ type ConfirmationEmailType = {
   expirationDate: ExpirationDate;
   isConfirmed: boolean;
 };
+
 export type UserMongoDBType = {
   _id: ObjectId;
   login: string;
@@ -21,5 +22,11 @@ export type NoteMongoDBType = {
   userId: string;
   title: string;
   isDone?: boolean;
+  createdAt: string;
+};
+
+export type TokenMongoDBType = {
+  _id: ObjectId;
+  token: string;
   createdAt: string;
 };

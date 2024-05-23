@@ -3,12 +3,12 @@ import { NoteInputModel } from "../models";
 import { notesRepository } from "../repositories";
 
 export const notesService = {
-  async createNote(inputsData: NoteInputModel) {
+  async createNote(inputsData: NoteInputModel, userId: string) {
     const { title, isDone = false } = inputsData;
 
     const newNote = {
       _id: new ObjectId(),
-      userId: "123456789", //update later
+      userId,
       title,
       isDone,
       createdAt: new Date().toISOString(),

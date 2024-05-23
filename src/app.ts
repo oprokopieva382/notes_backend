@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import { SETTINGS } from "./settings";
 import { usersRouter } from "./features/users";
 import { notesRouter } from "./features/notes";
@@ -8,6 +9,7 @@ import { errorHandlerMiddleware } from "./middlewares";
 export const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(SETTINGS.PATH.AUTH, authRouter)
 app.use(SETTINGS.PATH.USERS, usersRouter);
 app.use(SETTINGS.PATH.NOTES, notesRouter)

@@ -7,6 +7,8 @@ import { randomUUID } from "crypto";
 import { add } from "date-fns/add";
 import { emailAdapter } from "../adapters";
 import { SETTINGS } from "./../settings";
+import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
+import { jwtService } from "../application";
 
 export const authService = {
   async signUp(data: UserInputModel) {
@@ -92,5 +94,27 @@ export const authService = {
     }
 
     return user;
+  },
+
+  async addTokenToBlackList(refreshToken: string) {
+    const tokenToMark = {
+      _id: new ObjectId(),
+      token: refreshToken,
+      createdAt: new Date().toISOString(),
+    };
+    return await tokenBlackListCollection.insertOne(tokenToMark);
+  },
+
+  async refreshToken(id: string, refreshToken: string) {
+    await this.addTokenToBlackList(refreshToken);
+
+    const newAccessToken = await jwtService.generateAccessToken(id);
+    const newRefreshToken = await jwtService.generateRefreshToken(id);
+
+    return { newAccessToken, newRefreshToken };
+  },
+
+  async logout(refreshToken: string) {
+    return await this.addTokenToBlackList(refreshToken);
   },
 };
