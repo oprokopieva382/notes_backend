@@ -1,12 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import { usersService } from "../../services";
-import { UserInputModel } from "../../models";
+import { UserInputModel, UserViewModel} from "../../models";
 import { ApiError } from "../../helper/api_error";
 import { usersQuery } from "../../query_objects";
 import { formatResponse } from "../../utils/responseFormatter";
+import { userDTO } from './../../DTO/user_dto';
 
 export const usersController = {
-  getUsers: async (req: Request, res: Response, next: NextFunction) => {
+  getUsers: async (
+    req: Request,
+    res: Response<UserViewModel>,
+    next: NextFunction
+  ) => {
     try {
       const result = await usersQuery.getUsers();
       if (!result) {
@@ -20,7 +25,7 @@ export const usersController = {
 
   createUser: async (
     req: Request<{}, {}, UserInputModel>,
-    res: Response,
+    res: Response<UserViewModel>,
     next: NextFunction
   ) => {
     try {
@@ -28,7 +33,7 @@ export const usersController = {
       if (!result) {
         throw ApiError.NotFoundError("Created user not found");
       }
-      formatResponse(res, 201, result, "User created successfully");
+      formatResponse(res, 201, userDTO(result), "User created successfully");
     } catch (error) {
       next(error);
     }

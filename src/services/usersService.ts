@@ -19,6 +19,7 @@ export const usersService = {
     const createdUser = await usersRepository.findUser(insertedUserId);
     return createdUser;
   },
+  
   async removeUser(id: string) {
     return await  usersRepository.removeUser(id);
   }
