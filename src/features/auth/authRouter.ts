@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authController } from "./authController";
 import {
-  userAuthorizationMiddleware,
+  isAuthorizedMiddleware,
   validateLoginInputs,
   validateRefreshToken,
   validateSignUpInputs,
@@ -22,4 +22,4 @@ authRouter.post(
   validateRefreshToken,
   authController.refreshToken
 );
-authRouter.get("/me", userAuthorizationMiddleware, authController.me);
+authRouter.get("/me", isAuthorizedMiddleware, authController.me);

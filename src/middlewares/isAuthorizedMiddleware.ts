@@ -3,7 +3,7 @@ import { jwtService } from "../application";
 import { ApiError } from "../helper/api_error";
 import { usersQuery } from "../query_objects";
 
-export const userAuthorizationMiddleware = async (
+export const isAuthorizedMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction

@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { authAdminMiddleware } from "../../middlewares";
+import { isAdminMiddleware } from "../../middlewares";
 import { usersController } from "./usersController";
 
 export const usersRouter = Router();
 
-usersRouter.get("/", authAdminMiddleware, usersController.getUsers);
-usersRouter.post("/", authAdminMiddleware, usersController.createUser);
-usersRouter.delete("/:id", authAdminMiddleware, usersController.deleteUser);
+usersRouter.get("/", isAdminMiddleware, usersController.getUsers);
+usersRouter.post("/", isAdminMiddleware, usersController.createUser);
+usersRouter.delete("/:id", isAdminMiddleware, usersController.deleteUser);

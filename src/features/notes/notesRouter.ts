@@ -1,31 +1,16 @@
 import { Router } from "express";
 import { notesController } from "./notesController";
-import {
-  userAuthorizationMiddleware,
-  validateNoteInputs,
-} from "../../middlewares";
+import { isAuthorizedMiddleware, validateNoteInputs } from "../../middlewares";
 
 export const notesRouter = Router();
 
-notesRouter.get("/", userAuthorizationMiddleware, notesController.getNotes);
-notesRouter.get(
-  "/:id",
-  userAuthorizationMiddleware,
-  notesController.getNoteById
-);
+notesRouter.get("/", isAuthorizedMiddleware, notesController.getNotes);
+notesRouter.get("/:id", isAuthorizedMiddleware, notesController.getNoteById);
 notesRouter.post(
   "/",
-  userAuthorizationMiddleware,
+  isAuthorizedMiddleware,
   validateNoteInputs,
   notesController.createNote
 );
-notesRouter.put(
-  "/:id",
-  userAuthorizationMiddleware,
-  notesController.updateNote
-);
-notesRouter.delete(
-  "/:id",
-  userAuthorizationMiddleware,
-  notesController.deleteNote
-);
+notesRouter.put("/:id", isAuthorizedMiddleware, notesController.updateNote);
+notesRouter.delete("/:id", isAuthorizedMiddleware, notesController.deleteNote);
