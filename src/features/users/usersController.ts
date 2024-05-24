@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { usersService } from "../../services";
-import { UserInputModel, UserViewModel} from "../../models";
+import { UserSignUpModel, UserViewModel} from "../../models";
 import { ApiError } from "../../helper/api_error";
 import { usersQuery } from "../../query_objects";
 import { formatResponse } from "../../utils/responseFormatter";
@@ -24,7 +24,7 @@ export const usersController = {
   },
 
   createUser: async (
-    req: Request<{}, {}, UserInputModel>,
+    req: Request<{}, {}, UserSignUpModel>,
     res: Response<UserViewModel>,
     next: NextFunction
   ) => {

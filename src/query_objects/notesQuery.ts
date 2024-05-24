@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
-import { noteDTO } from "../DTO/note_dto";
 import { notesCollection } from "../mongoDB";
+import { noteDTO } from "../DTO/note_dto";
 import { NoteViewModel } from "../models";
 
 export const notesQuery = {

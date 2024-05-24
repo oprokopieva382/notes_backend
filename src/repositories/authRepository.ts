@@ -9,6 +9,13 @@ export const authRepository = {
     return user ? user : null;
   },
 
+  async findUserByLogin(login: string): Promise<UserMongoDBType | null> {
+    const user = await usersCollection.findOne({
+      login,
+    });
+    return user ? user : null;
+  },
+
   async findUserByCode(code: string): Promise<UserMongoDBType | null> {
     const user = await usersCollection.findOne({
       "emailConfirmation.confirmationCode": code,
@@ -25,10 +32,7 @@ export const authRepository = {
     return user;
   },
 
-  async updateConfirmationCode(
-    id: ObjectId,
-    code: string
-  ): Promise<Boolean> {
+  async updateConfirmationCode(id: ObjectId, code: string): Promise<Boolean> {
     const user = await usersCollection.updateOne(
       { _id: id },
       { $set: { "emailConfirmation.confirmationCode": code } }

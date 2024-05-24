@@ -1,11 +1,11 @@
 import { ObjectId } from "mongodb";
-import { UserInputModel } from "../models";
-import { usersRepository } from "../repositories";
 import { randomUUID } from "crypto";
 import { add } from "date-fns/add";
+import { UserSignUpModel } from "../models";
+import { usersRepository } from "../repositories";
 
 export const usersService = {
-  async createUser(inputsData: UserInputModel) {
+  async createUser(inputsData: UserSignUpModel) {
     const { login, password, email } = inputsData;
 
     const newUser = {

@@ -1,15 +1,17 @@
 import { Router } from "express";
 import { authController } from "./authController";
 import {
-  userAuthorizationMiddleware,
+  isAuthorizedMiddleware,
+  validateLoginInputs,
   validateRefreshToken,
+  validateSignUpInputs,
 } from "../../middlewares";
 
 export const authRouter = Router();
 
-authRouter.post("/login", authController.login);
+authRouter.post("/login", validateLoginInputs, authController.login);
 authRouter.post("/logout", validateRefreshToken, authController.logout);
-authRouter.post("/sign-up", authController.signUp);
+authRouter.post("/sign-up", validateSignUpInputs, authController.signUp);
 authRouter.get(
   "/sign-up-email-confirmation/:code",
   authController.emailConfirmation
@@ -20,4 +22,4 @@ authRouter.post(
   validateRefreshToken,
   authController.refreshToken
 );
-authRouter.get("/me", userAuthorizationMiddleware, authController.me);
+authRouter.get("/me", isAuthorizedMiddleware, authController.me);

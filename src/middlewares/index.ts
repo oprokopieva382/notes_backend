@@ -1,4 +1,7 @@
 export { errorHandlerMiddleware } from "./errorHandlerMiddleware";
-export { authAdminMiddleware } from "./authAdminMiddleware";
+export { isAdminMiddleware } from "./isAdminMiddleware";
+export { isAuthorizedMiddleware } from "./isAuthorizedMiddleware";
 export { validateRefreshToken } from "./validateRefreshToken";
-export { userAuthorizationMiddleware } from "./userAuthorizationMiddleware";
+export { validateSignUpInputs } from "./validateSignUpInputs";
+export { validateLoginInputs } from "./validateLoginInputs";
+export { validateNoteInputs } from "./validateNoteInputs";

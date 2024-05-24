@@ -1,17 +1,17 @@
 import { ObjectId } from "mongodb";
-import { ApiError } from "../helper/api_error";
-import { UserInputModel } from "../models";
-import { authRepository, usersRepository } from "../repositories";
-import { bcryptService } from "./bcryptService";
 import { randomUUID } from "crypto";
 import { add } from "date-fns/add";
+import { bcryptService } from "./bcryptService";
+import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
+import { ApiError } from "../helper/api_error";
+import { UserLoginModel, UserSignUpModel } from "../models";
+import { authRepository, usersRepository } from "../repositories";
 import { emailAdapter } from "../adapters";
 import { SETTINGS } from "./../settings";
-import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
 import { jwtService } from "../application";
 
 export const authService = {
-  async signUp(data: UserInputModel) {
+  async signUp(data: UserSignUpModel) {
     const { login, password, email } = data;
     const user = await authRepository.findUserByEmail(email);
     if (user) {
@@ -59,7 +59,7 @@ export const authService = {
     return authRepository.confirmUser(user._id);
   },
 
-  async emailResending(data: UserInputModel) {
+  async emailResending(data: UserSignUpModel) {
     const user = await authRepository.findUserByEmail(data.email);
     if (!user) {
       throw ApiError.BadRequestError("Confirmation failed", [
@@ -75,18 +75,19 @@ export const authService = {
     return user;
   },
 
-  async login(data: UserInputModel) {
-    const user = await authRepository.findUserByEmail(data.email);
+  async login(data: UserLoginModel) {
+    const user = await authRepository.findUserByLogin(data.login);
     if (!user) {
       throw ApiError.BadRequestError("Login failed", [
         `No user found, can't login. Check your information or sign up first`,
       ]);
     }
 
-    const verifyPassword = bcryptService.verifyPassword(
+    const verifyPassword = await bcryptService.verifyPassword(
       data.password,
       user.password
     );
+    
     if (!verifyPassword) {
       throw ApiError.UnauthorizedError("Login failed", [
         `You are not authorized to login. Password is not match`,
