@@ -1,8 +1,8 @@
+import { NextFunction, Request, Response } from "express";
+import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
 import { jwtService } from "../application";
 import { ApiError } from "../helper/api_error";
-import { NextFunction, Request, Response } from "express";
 import { usersQuery } from "../query_objects";
-import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
 
 export const validateRefreshToken = async (
   req: Request,

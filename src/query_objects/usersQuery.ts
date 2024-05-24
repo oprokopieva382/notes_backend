@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
+import { usersCollection } from "../mongoDB";
 import { userDTO } from "../DTO/user_dto";
 import { UserViewModel } from "../models";
-import { usersCollection } from "../mongoDB";
 
 export const usersQuery = {
   async getUsers() {

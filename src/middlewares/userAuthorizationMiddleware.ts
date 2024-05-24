@@ -1,6 +1,6 @@
+import { NextFunction, Request, Response } from "express";
 import { jwtService } from "../application";
 import { ApiError } from "../helper/api_error";
-import { NextFunction, Request, Response } from "express";
 import { usersQuery } from "../query_objects";
 
 export const userAuthorizationMiddleware = async (

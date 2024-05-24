@@ -1,10 +1,10 @@
-import { ApiError } from "../helper/api_error";
 import { NextFunction, Request, Response } from "express";
 import {
   FieldValidationError,
   body,
   validationResult,
 } from "express-validator";
+import { ApiError } from "../helper/api_error";
 
 export const validateNoteInputs = async (
   req: Request,

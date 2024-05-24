@@ -1,13 +1,13 @@
 import { ObjectId } from "mongodb";
+import { randomUUID } from "crypto";
+import { add } from "date-fns/add";
+import { bcryptService } from "./bcryptService";
+import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
 import { ApiError } from "../helper/api_error";
 import { UserLoginModel, UserSignUpModel } from "../models";
 import { authRepository, usersRepository } from "../repositories";
-import { bcryptService } from "./bcryptService";
-import { randomUUID } from "crypto";
-import { add } from "date-fns/add";
 import { emailAdapter } from "../adapters";
 import { SETTINGS } from "./../settings";
-import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
 import { jwtService } from "../application";
 
 export const authService = {
