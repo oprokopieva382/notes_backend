@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { notesController } from "./notesController";
-import { userAuthorizationMiddleware } from "../../middlewares";
+import {
+  userAuthorizationMiddleware,
+  validateNoteInputs,
+} from "../../middlewares";
 
 export const notesRouter = Router();
 
@@ -10,7 +13,12 @@ notesRouter.get(
   userAuthorizationMiddleware,
   notesController.getNoteById
 );
-notesRouter.post("/", userAuthorizationMiddleware, notesController.createNote);
+notesRouter.post(
+  "/",
+  userAuthorizationMiddleware,
+  validateNoteInputs,
+  notesController.createNote
+);
 notesRouter.put(
   "/:id",
   userAuthorizationMiddleware,
