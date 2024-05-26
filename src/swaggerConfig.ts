@@ -7,6 +7,20 @@ const options = {
       title: "Node.js/Express.js API for Notes Manager",
       version: "1.0.0",
     },
+    tags: [
+      {
+        name: "Auth",
+        description: "Auth endpoints",
+      },
+      {
+        name: "Users",
+        description: "Admin endpoints",
+      },
+      {
+        name: "Notes",
+        description: "Notes endpoints",
+      },
+    ],
     servers: [
       {
         url: "http://localhost:5000",
@@ -14,6 +28,7 @@ const options = {
     ],
   },
   apis: [
+    "./settings.ts",
     "./src/features/auth/*.ts",
     "./src/features/notes/*.ts",
     "./src/features/users/*.ts",
