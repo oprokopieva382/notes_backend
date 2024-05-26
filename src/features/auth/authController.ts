@@ -7,6 +7,13 @@ import { jwtService } from "../../application";
 import { usersQuery } from "../../query_objects";
 
 export const authController = {
+  /**
+   * @swagger
+   * /:
+   *
+   *
+   *
+   */
   signUp: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await authService.signUp(req.body);
@@ -69,6 +76,7 @@ export const authController = {
       next(error);
     }
   },
+
 
   me: async (req: Request, res: Response, next: NextFunction) => {
     try {
