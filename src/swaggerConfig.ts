@@ -1,4 +1,5 @@
 import swaggerJsdoc from "swagger-jsdoc";
+import { ResponseViewModel, UserInputModel, UserViewModel } from "./swagger/schemas";
 
 const options = {
   definition: {
@@ -27,12 +28,22 @@ const options = {
       },
     ],
     components: {
+      schemas: {
+        ResponseViewModel,
+        UserViewModel,
+        UserInputModel,
+      },
       securitySchemes: {
         JWT: {
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
           description: "Enter JWT Bearer token only",
+        },
+        BasicAuth: {
+          type: "http",
+          scheme: "basic",
+          description: "Enter Basic Authentication credentials",
         },
       },
     },
