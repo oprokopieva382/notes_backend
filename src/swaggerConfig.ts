@@ -26,6 +26,16 @@ const options = {
         url: "http://localhost:5000",
       },
     ],
+    components: {
+      securitySchemes: {
+        JWT: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+          description: "Enter JWT Bearer token only",
+        },
+      },
+    },
   },
   apis: [
     "./settings.ts",

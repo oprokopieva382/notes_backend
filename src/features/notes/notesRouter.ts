@@ -10,11 +10,16 @@ export const notesRouter = Router();
  *   schemas:
  *     ResponseViewModel:
  *       type: object
+ *       required:
+ *         - status
+ *         - data
  *       properties:
  *         status:
  *           type: number
  *         data:
- *           $ref: '#/components/schemas/NoteViewModel'
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/NoteViewModel'
  *         message:
  *           type: string
  *         errors:
@@ -23,6 +28,12 @@ export const notesRouter = Router();
  *             type: string
  *     NoteViewModel:
  *       type: object
+ *       required:
+ *         - id
+ *         - userId
+ *         - title
+ *         - isDone
+ *         - createdAt
  *       properties:
  *         id:
  *           type: string
@@ -55,6 +66,8 @@ export const notesRouter = Router();
  *       - Notes
  *     summary: Return user notes
  *     description: Get all user notes
+ *     security:
+ *       - JWT: []
  *     responses:
  *       200:
  *         description: Success
@@ -64,6 +77,10 @@ export const notesRouter = Router();
  *               $ref: "#/components/schemas/ResponseViewModel"
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
  *
  */
 
@@ -82,6 +99,8 @@ export const notesRouter = Router();
  *         description: string ID required
  *         schema:
  *            type: string
+ *     security:
+ *       - JWT: []
  *     responses:
  *       200:
  *         description: Success
@@ -91,6 +110,10 @@ export const notesRouter = Router();
  *               $ref: "#/components/schemas/ResponseViewModel"
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
  *
  */
 
@@ -98,7 +121,7 @@ export const notesRouter = Router();
  * @swagger
  * /notes/:
  *   post:
- *     tags:
+  *     tags:
  *       - Notes
  *     summary: Create new note
  *     description: Create new note for user
@@ -108,6 +131,8 @@ export const notesRouter = Router();
  *         application/json:
  *           schema:
  *             $ref: "#/components/schemas/NoteInputModel"
+ *     security:
+ *       - JWT: []
  *     responses:
  *       201:
  *         description: Returns Response object with data of the newly created note
@@ -117,6 +142,10 @@ export const notesRouter = Router();
  *               $ref: "#/components/schemas/ResponseViewModel"
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
  *       400:
  *         description: If the input has incorrect values
  *         content:
@@ -146,6 +175,8 @@ export const notesRouter = Router();
  *         description: string ID required
  *         schema:
  *            type: string
+ *     security:
+ *       - JWT: []
  *     responses:
  *       201:
  *         description: Returns Response object with data of the newly updated note
@@ -155,8 +186,46 @@ export const notesRouter = Router();
  *               $ref: "#/components/schemas/ResponseViewModel"
  *       401:
  *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
  *       400:
  *         description: If the input has incorrect values
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
+ */
+
+/**
+ * @swagger
+ * /notes/{id}:
+ *   delete:
+ *     tags:
+ *       - Notes
+ *     summary: Delete note by id
+ *     description: Delete the note for user by id
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: string ID required
+ *         schema:
+ *            type: string
+ *     security:
+ *       - JWT: []
+ *     responses:
+ *       204:
+ *         description: No content
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
+ *       404:
+ *         description: Not found
  *         content:
  *           application/json:
  *             schema:
