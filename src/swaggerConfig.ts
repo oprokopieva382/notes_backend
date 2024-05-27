@@ -1,5 +1,12 @@
 import swaggerJsdoc from "swagger-jsdoc";
-import { NoteInputModel, NoteViewModel, ResponseViewModel, UserInputModel, UserViewModel } from "./swagger/schemas";
+import {
+  NoteInputModel,
+  NoteViewModel,
+  ResponseViewModel,
+  UserLogInModel,
+  UserSignUpModel,
+  UserViewModel,
+} from "./swagger/schemas";
 
 const options = {
   definition: {
@@ -31,7 +38,8 @@ const options = {
       schemas: {
         ResponseViewModel,
         UserViewModel,
-        UserInputModel,
+        UserSignUpModel,
+        UserLogInModel,
         NoteViewModel,
         NoteInputModel,
       },
@@ -46,6 +54,13 @@ const options = {
           type: "http",
           scheme: "basic",
           description: "Enter Basic Authentication credentials",
+        },
+        refreshToken: {
+          type: "apiKey",
+          in: "cookie",
+          name: "refreshToken",
+          description:
+            "JWT refreshToken inside cookie. Must be correct, and must not expire",
         },
       },
     },

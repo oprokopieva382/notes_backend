@@ -42,7 +42,7 @@ export const usersRouter = Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: "#/components/schemas/UserInputModel"
+ *             $ref: "#/components/schemas/UserSignUpModel"
  *     security:
  *       - BasicAuth: []
  *     responses:

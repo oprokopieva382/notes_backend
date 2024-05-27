@@ -26,13 +26,22 @@ export const UserViewModel = {
   },
 };
 
-export const UserInputModel = {
+export const UserSignUpModel = {
   type: "object",
   required: ["login", "password", "email"],
   properties: {
     login: { type: "string", maxLength: 15, minLength: 5 },
     password: { type: "string", maxLength: 20, minLength: 6 },
     email: { type: "string", pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" },
+  },
+};
+
+export const UserLogInModel = {
+  type: "object",
+  required: ["login", "password"],
+  properties: {
+    login: { type: "string", maxLength: 15, minLength: 5 },
+    password: { type: "string", maxLength: 20, minLength: 6 },
   },
 };
 
