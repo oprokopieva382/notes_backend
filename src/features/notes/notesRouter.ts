@@ -34,9 +34,20 @@ export const notesRouter = Router();
  *           type: boolean
  *         createdAt:
  *           type: string
+ *     NoteInputModel:
+ *       type: object
+ *       required:
+ *         - title
+ *       properties:
+ *         title:
+ *           type: string
+ *           maxLength: 35
+ *           minLength: 5
+ *         isDone:
+ *           type: boolean
  */
 
- /**
+/**
  * @swagger
  * /notes/:
  *   get:
@@ -53,14 +64,10 @@ export const notesRouter = Router();
  *               $ref: "#/components/schemas/ResponseViewModel"
  *       401:
  *         description: Unauthorized
-   *       content:
-   *          application/json:
-   *             schema:
-   *                $ref: "#components/schemas/ResponseViewModel"
-   *
-   */
+ *
+ */
 
-  /**
+/**
  * @swagger
  * /notes/{id}:
  *   get:
@@ -84,12 +91,77 @@ export const notesRouter = Router();
  *               $ref: "#/components/schemas/ResponseViewModel"
  *       401:
  *         description: Unauthorized
-   *       content:
-   *          application/json:
-   *             schema:
-   *                $ref: "#components/schemas/ResponseViewModel"
-   *
-   */
+ *
+ */
+
+/**
+ * @swagger
+ * /notes/:
+ *   post:
+ *     tags:
+ *       - Notes
+ *     summary: Create new note
+ *     description: Create new note for user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/NoteInputModel"
+ *     responses:
+ *       201:
+ *         description: Returns Response object with data of the newly created note
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
+ *       401:
+ *         description: Unauthorized
+ *       400:
+ *         description: If the input has incorrect values
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
+ */
+
+/**
+ * @swagger
+ * /notes/{id}:
+ *   put:
+ *     tags:
+ *       - Notes
+ *     summary: Update note by id
+ *     description: Update the note for user by id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/NoteInputModel"
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: string ID required
+ *         schema:
+ *            type: string
+ *     responses:
+ *       201:
+ *         description: Returns Response object with data of the newly updated note
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
+ *       401:
+ *         description: Unauthorized
+ *       400:
+ *         description: If the input has incorrect values
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: "#/components/schemas/ResponseViewModel"
+ */
 
 notesRouter.get("/", isAuthorizedMiddleware, notesController.getNotes);
 notesRouter.get("/:id", isAuthorizedMiddleware, notesController.getNoteById);
