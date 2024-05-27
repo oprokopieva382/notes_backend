@@ -1,5 +1,5 @@
 import swaggerJsdoc from "swagger-jsdoc";
-import { ResponseViewModel, UserInputModel, UserViewModel } from "./swagger/schemas";
+import { NoteInputModel, NoteViewModel, ResponseViewModel, UserInputModel, UserViewModel } from "./swagger/schemas";
 
 const options = {
   definition: {
@@ -32,6 +32,8 @@ const options = {
         ResponseViewModel,
         UserViewModel,
         UserInputModel,
+        NoteViewModel,
+        NoteInputModel,
       },
       securitySchemes: {
         JWT: {

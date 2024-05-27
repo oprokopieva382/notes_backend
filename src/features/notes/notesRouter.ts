@@ -4,59 +4,6 @@ import { isAuthorizedMiddleware, validateNoteInputs } from "../../middlewares";
 
 export const notesRouter = Router();
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     ResponseViewModel:
- *       type: object
- *       required:
- *         - status
- *         - data
- *       properties:
- *         status:
- *           type: number
- *         data:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/NoteViewModel'
- *         message:
- *           type: string
- *         errors:
- *           type: array
- *           items:
- *             type: string
- *     NoteViewModel:
- *       type: object
- *       required:
- *         - id
- *         - userId
- *         - title
- *         - isDone
- *         - createdAt
- *       properties:
- *         id:
- *           type: string
- *         userId:
- *           type: string
- *         title:
- *           type: string
- *         isDone:
- *           type: boolean
- *         createdAt:
- *           type: string
- *     NoteInputModel:
- *       type: object
- *       required:
- *         - title
- *       properties:
- *         title:
- *           type: string
- *           maxLength: 35
- *           minLength: 5
- *         isDone:
- *           type: boolean
- */
 
 /**
  * @swagger

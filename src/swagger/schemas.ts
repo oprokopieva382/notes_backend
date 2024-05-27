@@ -35,3 +35,24 @@ export const UserInputModel = {
     email: { type: "string", pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" },
   },
 };
+
+export const NoteViewModel = {
+  type: "object",
+  required: ["id", "userId", "title", "isDone", "createdAt"],
+  properties: {
+    id: { type: "string" },
+    userId: { type: "string" },
+    title: { type: "string" },
+    isDone: { type: "boolean" },
+    createdAt: { type: "string" },
+  },
+};
+
+export const NoteInputModel = {
+  type: "object",
+  required: ["title"],
+  properties: {
+    title: { type: "string", maxLength: 35, minLength: 5 },
+    isDone: { type: "boolean" },
+  },
+};
