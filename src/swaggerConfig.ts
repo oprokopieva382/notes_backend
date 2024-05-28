@@ -1,4 +1,15 @@
 import swaggerJsdoc from "swagger-jsdoc";
+import {
+  LoginSuccessViewModel,
+  NoteInputModel,
+  NoteViewModel,
+  ResponseSuccessUserLoginModel,
+  ResponseViewNoteModel,
+  ResponseViewUserModel,
+  UserLogInModel,
+  UserSignUpModel,
+  UserViewModel,
+} from "./swagger/schemas";
 
 const options = {
   definition: {
@@ -26,6 +37,39 @@ const options = {
         url: "http://localhost:5000",
       },
     ],
+    components: {
+      schemas: {
+        ResponseViewNoteModel,
+        ResponseViewUserModel,
+        ResponseSuccessUserLoginModel,
+        LoginSuccessViewModel,
+        UserViewModel,
+        UserSignUpModel,
+        UserLogInModel,
+        NoteViewModel,
+        NoteInputModel,
+      },
+      securitySchemes: {
+        JWT: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+          description: "Enter JWT Bearer token only",
+        },
+        BasicAuth: {
+          type: "http",
+          scheme: "basic",
+          description: "Enter Basic Authentication credentials",
+        },
+        refreshToken: {
+          type: "apiKey",
+          in: "cookie",
+          name: "refreshToken",
+          description:
+            "JWT refreshToken inside cookie. Must be correct, and must not expire",
+        },
+      },
+    },
   },
   apis: [
     "./settings.ts",
