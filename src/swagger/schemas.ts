@@ -1,14 +1,39 @@
-export const ResponseViewModel = {
+export const ResponseViewNoteModel = {
   type: "object",
   required: ["status", "data"],
   properties: {
     status: { type: "number" },
     data: {
       type: "array",
-      oneOf: [
-        { $ref: "#/components/schemas/UserViewModel" },
-        { $ref: "#/components/schemas/NoteViewModel" },
-      ],
+      $ref: "#/components/schemas/NoteViewModel",
+    },
+    message: { type: "string" },
+    errors: { type: "array", items: { type: "string" } },
+  },
+};
+
+export const ResponseSuccessUserLoginModel = {
+  type: "object",
+  required: ["status", "data"],
+  properties: {
+    status: { type: "number" },
+    data: {
+      type: "array",
+      $ref: "#/components/schemas/LoginSuccessViewModel",
+    },
+    message: { type: "string" },
+    errors: { type: "array", items: { type: "string" } },
+  },
+};
+
+export const ResponseViewUserModel = {
+  type: "object",
+  required: ["status", "data"],
+  properties: {
+    status: { type: "number" },
+    data: {
+      type: "array",
+      $ref: "#/components/schemas/UserViewModel",
     },
     message: { type: "string" },
     errors: { type: "array", items: { type: "string" } },
@@ -26,6 +51,14 @@ export const UserViewModel = {
   },
 };
 
+export const LoginSuccessViewModel = {
+  type: "object",
+  required: ["accessToken"],
+  properties: {
+    accessToken: { type: "string" },
+  },
+};
+
 export const UserSignUpModel = {
   type: "object",
   required: ["login", "password", "email"],
@@ -33,6 +66,11 @@ export const UserSignUpModel = {
     login: { type: "string", maxLength: 15, minLength: 5 },
     password: { type: "string", maxLength: 20, minLength: 6 },
     email: { type: "string", pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" },
+  },
+  example: {
+    login: "kevin1985",
+    password: "bdfbdfbd",
+    email: "kevin@example.com",
   },
 };
 
@@ -42,6 +80,10 @@ export const UserLogInModel = {
   properties: {
     login: { type: "string", maxLength: 15, minLength: 5 },
     password: { type: "string", maxLength: 20, minLength: 6 },
+  },
+  example: {
+    login: "kevin1985",
+    password: "password123",
   },
 };
 
@@ -63,5 +105,8 @@ export const NoteInputModel = {
   properties: {
     title: { type: "string", maxLength: 35, minLength: 5 },
     isDone: { type: "boolean" },
+  },
+  example: {
+    title: "Learn REST API's",
   },
 };

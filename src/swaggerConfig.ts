@@ -1,8 +1,11 @@
 import swaggerJsdoc from "swagger-jsdoc";
 import {
+  LoginSuccessViewModel,
   NoteInputModel,
   NoteViewModel,
-  ResponseViewModel,
+  ResponseSuccessUserLoginModel,
+  ResponseViewNoteModel,
+  ResponseViewUserModel,
   UserLogInModel,
   UserSignUpModel,
   UserViewModel,
@@ -36,7 +39,10 @@ const options = {
     ],
     components: {
       schemas: {
-        ResponseViewModel,
+        ResponseViewNoteModel,
+        ResponseViewUserModel,
+        ResponseSuccessUserLoginModel,
+        LoginSuccessViewModel,
         UserViewModel,
         UserSignUpModel,
         UserLogInModel,

@@ -4,7 +4,6 @@ import { isAuthorizedMiddleware, validateNoteInputs } from "../../middlewares";
 
 export const notesRouter = Router();
 
-
 /**
  * @swagger
  * /notes/:
@@ -21,14 +20,42 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               success:
+ *                 value:
+ *                   status: 200
+ *                   data: [
+ *                     {
+ *                        "id": "664f8efc4eee1938b198aa1e",
+ *                        "userId": "664f8e7f4eee1938b198aa1d",
+ *                        "title": "Learn JWT",
+ *                        "isDone": true,
+ *                         "createdAt": "2024-05-23T18:46:20.594Z"
+ *                     },
+ *                      {
+ *                          "id": "6650b5e868e7854cfc56e919",
+ *                          "userId": "6650b060ac711bd976280c01",
+ *                          "title": "Read Promises",
+ *                          "isDone": false,
+ *                          "createdAt": "2024-05-24T15:44:40.903Z"
+ *                      },
+ *                   ]
+ *                   message: "Notes retrieved successfully"
+ *                   errors: []
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
- *
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  */
 
 /**
@@ -54,21 +81,41 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               success:
+ *                 value:
+ *                   status: 200
+ *                   data: [
+ *                     {
+ *                        id: "664f8efc4eee1938b198aa1e",
+ *                        userId: "664f8e7f4eee1938b198aa1d",
+ *                        title: "Learn JWT",
+ *                        isDone: true,
+ *                        createdAt: "2024-05-23T18:46:20.594Z"
+ *                     }]
+ *                   message: "Notes retrieved successfully"
+ *                   errors: []
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
- *
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  */
 
 /**
  * @swagger
  * /notes/:
  *   post:
-  *     tags:
+ *     tags:
  *       - Notes
  *     summary: Create new note
  *     description: Create new note for user
@@ -86,19 +133,48 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               success:
+ *                 value:
+ *                   status: 201
+ *                   data: [
+ *                     {
+ *                       id: "664f8efc4eee1938b198aa1e",
+ *                       userId: "664f8e7f4eee1938b198aa1d",
+ *                       title: "Learn JWT",
+ *                       isDone: true,
+ *                       createdAt: "2024-05-23T18:46:20.594Z"
+ *                     }
+ *                   ]
+ *                   message: "Note created successfully"
+ *                   errors: []
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  *       400:
  *         description: If the input has incorrect values
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               bad request:
+ *                 value:
+ *                   status: 400
+ *                   data: {}
+ *                   message: "Validation failed"
+ *                   errors: [{message: "email must be a valid email address", field: "email"}]
  */
 
 /**
@@ -130,19 +206,47 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               success:
+ *                 value:
+ *                   status: 201
+ *                   data: [
+ *                     {
+ *                       id: "664f8efc4eee1938b198aa1e",
+ *                       userId: "664f8e7f4eee1938b198aa1d",
+ *                       title: "Learn JWT",
+ *                       isDone: true,
+ *                       createdAt: "2024-05-23T18:46:20.594Z"
+ *                     }]
+ *                   message: "Note updated successfully"
+ *                   errors: []
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  *       400:
  *         description: If the input has incorrect values
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               bad request:
+ *                 value:
+ *                   status: 400
+ *                   data: {}
+ *                   message: "Validation failed"
+ *                   errors: [{message: "max length of title 35 characters", field: "title"}]
  */
 
 /**
@@ -170,13 +274,27 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  *       404:
  *         description: Not found
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *             examples:
+ *               not found:
+ *                 value:
+ *                   status: 404
+ *                   data: {}
+ *                   message: "Note to delete is not found"
+ *                   errors: ["Note with id 6654f93acfcdc65a610ed081 does not exist"]
  */
 
 notesRouter.get("/", isAuthorizedMiddleware, notesController.getNotes);
@@ -187,5 +305,10 @@ notesRouter.post(
   validateNoteInputs,
   notesController.createNote
 );
-notesRouter.put("/:id", isAuthorizedMiddleware, notesController.updateNote);
+notesRouter.put(
+  "/:id",
+  isAuthorizedMiddleware,
+  validateNoteInputs,
+  notesController.updateNote
+);
 notesRouter.delete("/:id", isAuthorizedMiddleware, notesController.deleteNote);

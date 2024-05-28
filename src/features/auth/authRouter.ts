@@ -25,13 +25,33 @@ export const authRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               success:
+ *                 value:
+ *                   status: 200
+ *                   data: [
+ *                     {
+ *                       id: "559f8efc4eee1938b198aa1e",
+ *                       login: "kevin1985",
+ *                       email: "kevin@gmail.com",
+ *                       createdAt: "2023-01-01T00:00:00Z"
+ *                     }]
+ *                   message: "User authorized"
+ *                   errors: []
  *       401:
  *         description: Unauthorized
  *       content:
  *          application/json:
  *             schema:
- *                $ref: "#components/schemas/ResponseViewModel"
+ *                $ref: "#components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  */
 
 /**
@@ -54,20 +74,43 @@ export const authRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseSuccessUserLoginModel"
+ *             examples:
+ *               success:
+ *                 value:
+ *                   status: 201
+ *                   data: [
+ *                     {
+ *                       accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjUwYjA2MGFjNzExYmQ5NzYyODBjMDEiLCJpYXQiOjE3MTY4Njg0MzQsImV4cCI6MTcxNjg3MjAzNH0.KDdKP8keCIJ7tq5Uf16luERMGnUgmD915x3xo7cDKpM",
+ *                     }]
+ *                   message: "User logged in successfully"
+ *                   errors: []
  *       401:
  *         description: Unauthorized
- *       content:
+ *         content:
  *          application/json:
  *             schema:
- *                $ref: "#components/schemas/ResponseViewModel"
+ *                $ref: "#components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  *       400:
  *         description: If the input has incorrect values or accessToken expired
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
- *
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               bad request:
+ *                 value:
+ *                   status: 400
+ *                   data: {}
+ *                   message: "Validation failed"
+ *                   errors: [{message: "min length of password 6 characters", field: "password"}]
  */
 
 /**
@@ -83,23 +126,65 @@ export const authRouter = Router();
  *     responses:
  *       204:
  *         description: Success
- *         content:
- *           application/json:
- *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *
  *       401:
  *         description: Unauthorized
- *       content:
+ *         content:
  *          application/json:
  *             schema:
- *                $ref: "#components/schemas/ResponseViewModel"
+ *                $ref: "#components/schemas/ResponseViewUserModel"
+ *         examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
+ */
+
+/**
+ * @swagger
+ * /auth/sign-up:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Registration in the system. Email with confirmation code will be send to passed email address
+ *     description: Registration in the system. Email with confirmation code will be send to passed email address
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/UserSignUpModel"
+ *     responses:
+ *       204:
+ *         description: Input data is accepted. Email with confirmation code will be send to passed email address.
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *          application/json:
+ *             schema:
+ *                $ref: "#components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  *       400:
- *         description: If the refreshToken expired or incorrect
+ *         description: If the inputModel has incorrect values (in particular if the user with the given email or login already exists)
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
- *
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               bad request:
+ *                 value:
+ *                   status: 400
+ *                   data: {}
+ *                   message: "Validation failed"
+ *                   errors: [{message: "email must be a valid email address", field: "email"}]
  */
 
 authRouter.post("/login", validateLoginInputs, authController.login);

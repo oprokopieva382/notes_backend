@@ -20,13 +20,40 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               success:
+ *                 value:
+ *                   status: 200
+ *                   data: [
+ *                     {
+ *                       id: "559f8efc4eee1938b198aa1e",
+ *                       login: "kevin1985",
+ *                       email: "kevin@gmail.com",
+ *                       createdAt: "2023-01-01T00:00:00Z"
+ *                     },
+ *                     {
+ *                       id: "123f8efc4eee1938b198aa1e",
+ *                       login: "lory1980",
+ *                       email: "lory@gmail.com",
+ *                       createdAt: "2023-02-01T00:00:00Z"
+ *                     }
+ *                   ]
+ *                   message: "User data retrieved successfully"
+ *                   errors: []
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  */
 
 /**
@@ -51,19 +78,46 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               success:
+ *                 value:
+ *                   status: 201
+ *                   data: [
+ *                     {
+ *                       id: "559f8efc4eee1938b198aa1e",
+ *                       login: "kevin1985",
+ *                       email: "kevin@gmail.com",
+ *                       createdAt: "2023-01-01T00:00:00Z"
+ *                     }]
+ *                   message: "User created successfully"
+ *                   errors: []
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  *       400:
  *         description: If the input has incorrect values
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               bad request:
+ *                 value:
+ *                   status: 400
+ *                   data: {}
+ *                   message: "Validation failed"
+ *                   errors: [{message: "email must be a valid email address", field: "email"}]
  */
 
 /**
@@ -91,13 +145,27 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
  *       404:
  *         description: Not found
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewModel"
+ *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *             examples:
+ *               not found:
+ *                 value:
+ *                   status: 404
+ *                   data: {}
+ *                   message: "User to delete is not found"
+ *                   errors: ["User with id 6654f93acfcdc65a610ed081 does not exist"]
  */
 
 usersRouter.get("/", isAdminMiddleware, usersController.getUsers);
