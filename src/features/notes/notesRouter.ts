@@ -20,7 +20,21 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: "#/components/schemas/NoteViewModel"
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               success:
  *                 value:
@@ -48,7 +62,19 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -81,7 +107,21 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: "#/components/schemas/NoteViewModel"
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               success:
  *                 value:
@@ -101,7 +141,19 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -133,7 +185,21 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: "#/components/schemas/NoteViewModel"
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               success:
  *                 value:
@@ -154,7 +220,19 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -167,7 +245,19 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               bad request:
  *                 value:
@@ -206,7 +296,21 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: "#/components/schemas/NoteViewModel"
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               success:
  *                 value:
@@ -226,7 +330,19 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -239,7 +355,19 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               bad request:
  *                 value:
@@ -274,7 +402,19 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -287,7 +427,19 @@ export const notesRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewNoteModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               not found:
  *                 value:

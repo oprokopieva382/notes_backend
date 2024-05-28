@@ -3,9 +3,6 @@ import {
   LoginSuccessViewModel,
   NoteInputModel,
   NoteViewModel,
-  ResponseSuccessUserLoginModel,
-  ResponseViewNoteModel,
-  ResponseViewUserModel,
   UserLogInModel,
   UserSignUpModel,
   UserViewModel,
@@ -39,15 +36,13 @@ const options = {
     ],
     components: {
       schemas: {
-        ResponseViewNoteModel,
-        ResponseViewUserModel,
-        ResponseSuccessUserLoginModel,
         LoginSuccessViewModel,
         UserViewModel,
         UserSignUpModel,
         UserLogInModel,
         NoteViewModel,
         NoteInputModel,
+       
       },
       securitySchemes: {
         JWT: {

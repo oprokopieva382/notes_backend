@@ -25,7 +25,21 @@ export const authRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: "#/components/schemas/UserViewModel"
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               success:
  *                 value:
@@ -44,7 +58,19 @@ export const authRouter = Router();
  *       content:
  *          application/json:
  *             schema:
- *                $ref: "#components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -74,7 +100,21 @@ export const authRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseSuccessUserLoginModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: "#/components/schemas/LoginSuccessViewModel"
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               success:
  *                 value:
@@ -90,7 +130,19 @@ export const authRouter = Router();
  *         content:
  *          application/json:
  *             schema:
- *                $ref: "#components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -103,7 +155,19 @@ export const authRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               bad request:
  *                 value:
@@ -132,8 +196,20 @@ export const authRouter = Router();
  *         content:
  *          application/json:
  *             schema:
- *                $ref: "#components/schemas/ResponseViewUserModel"
- *         examples:
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *             examples:
  *               unauthorized:
  *                 value:
  *                   status: 401
@@ -164,7 +240,19 @@ export const authRouter = Router();
  *         content:
  *          application/json:
  *             schema:
- *                $ref: "#components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -177,7 +265,19 @@ export const authRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               bad request:
  *                 value:
