@@ -183,7 +183,7 @@ export const authRouter = Router();
  *   post:
  *     tags:
  *       - Auth
- *     summary: Logout user from the system
+ *     summary: In cookie client must send correct refreshToken that will be revoked
  *     description: Logout user from the system
  *     security:
  *       - refreshToken: []
@@ -286,6 +286,118 @@ export const authRouter = Router();
  *                   message: "Validation failed"
  *                   errors: [{message: "email must be a valid email address", field: "email"}]
  */
+
+/**
+ * @swagger
+ * /auth/sign-up-email-confirmation/{code}:
+ *   get:
+ *     tags:
+ *       - Auth
+ *     summary: Confirm user registration
+ *     description: Confirm user registration
+ *     parameters:
+ *       - in: path
+ *         name: code
+ *         required: true
+ *         description: Code that be sent via Email inside link
+ *         schema:
+ *            type: string
+ *     responses:
+ *       204:
+ *         description: Email was verified. Account was activated
+ *       400:
+ *         description: If the confirmation code is incorrect, expired or already been applied
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *             examples:
+ *               bad request:
+ *                 value:
+ *                   status: 400
+ *                   data: {}
+ *                   message: "Validation failed"
+ *                   errors: ["provided code invalid"]
+ */
+
+/**
+ * @swagger
+ * /auth/refresh-token:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Generate new pair of access and refresh tokens (in cookie client must send correct refreshToken that will be revoked after refreshing)
+ *     description: Generate new pair of access and refresh tokens
+ *     responses:
+ *       200:
+ *         description: Returns JWT accessToken (expired after 24 hours) in body and JWT refreshToken in cookie (http-only, secure) (expired after 30 days).
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: "#/components/schemas/LoginSuccessViewModel"
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *             examples:
+ *               success:
+ *                 value:
+ *                   status: 200
+ *                   data: [
+ *                     {
+ *                       accessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjUwYjA2MGFjNzExYmQ5NzYyODBjMDEiLCJpYXQiOjE3MTY4Njg0MzQsImV4cCI6MTcxNjg3MjAzNH0.KDdKP8keCIJ7tq5Uf16luERMGnUgmD915x3xo7cDKpM",
+ *                     }]
+ *                   message: "New access token sent"
+ *                   errors: []
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *          application/json:
+ *             schema:
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *             examples:
+ *               unauthorized:
+ *                 value:
+ *                   status: 401
+ *                   data: {}
+ *                   message: "Not authorized"
+ *                   errors: ["You are not authorized for this action"]
+ */
+
 
 authRouter.post("/login", validateLoginInputs, authController.login);
 authRouter.post("/logout", validateRefreshToken, authController.logout);
