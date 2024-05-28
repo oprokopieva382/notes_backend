@@ -20,7 +20,21 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: "#/components/schemas/UserViewModel"
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               success:
  *                 value:
@@ -46,7 +60,19 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -78,18 +104,29 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                   $ref: "#/components/schemas/UserViewModel"
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               success:
  *                 value:
  *                   status: 201
- *                   data: [
- *                     {
- *                       id: "559f8efc4eee1938b198aa1e",
- *                       login: "kevin1985",
- *                       email: "kevin@gmail.com",
- *                       createdAt: "2023-01-01T00:00:00Z"
- *                     }]
+ *                   data:
+ *                     id: "559f8efc4eee1938b198aa1e"
+ *                     login: "kevin1985"
+ *                     email: "kevin@gmail.com"
+ *                     createdAt: "2023-01-01T00:00:00Z"
  *                   message: "User created successfully"
  *                   errors: []
  *       401:
@@ -97,7 +134,19 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -110,14 +159,26 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               bad request:
  *                 value:
  *                   status: 400
  *                   data: {}
  *                   message: "Validation failed"
- *                   errors: [{message: "email must be a valid email address", field: "email"}]
+ *                   errors: ["email must be a valid email address"]
  */
 
 /**
@@ -145,7 +206,19 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               unauthorized:
  *                 value:
@@ -158,7 +231,19 @@ export const usersRouter = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: "#/components/schemas/ResponseViewUserModel"
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
  *             examples:
  *               not found:
  *                 value:
