@@ -340,6 +340,8 @@ export const authRouter = Router();
  *       - Auth
  *     summary: Generate new pair of access and refresh tokens (in cookie client must send correct refreshToken that will be revoked after refreshing)
  *     description: Generate new pair of access and refresh tokens
+ *     security:
+ *       - refreshToken: []
  *     responses:
  *       200:
  *         description: Returns JWT accessToken (expired after 24 hours) in body and JWT refreshToken in cookie (http-only, secure) (expired after 30 days).
@@ -397,7 +399,6 @@ export const authRouter = Router();
  *                   message: "Not authorized"
  *                   errors: ["You are not authorized for this action"]
  */
-
 
 authRouter.post("/login", validateLoginInputs, authController.login);
 authRouter.post("/logout", validateRefreshToken, authController.logout);
