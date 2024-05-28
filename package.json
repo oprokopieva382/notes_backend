@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "yarn nodemon --inspect dist/index.js",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "test": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/users.e2e.test.ts"
   },
   "dependencies": {
     "@types/swagger-ui-express": "^4.1.6",
@@ -29,11 +30,16 @@
     "@types/cookie-parser": "^1.4.7",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.12.12",
     "@types/nodemailer": "^6.4.15",
+    "@types/supertest": "^6.0.2",
     "@types/swagger-jsdoc": "^6.0.4",
+    "jest": "^29.7.0",
     "nodemon": "^3.1.0",
+    "supertest": "^7.0.0",
+    "ts-jest": "^29.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
