@@ -19,7 +19,7 @@ describe("notes tests", () => {
   });
 
   describe("CREATE NOTE", () => {
-    it.skip("1 - should create note and return  status code of 201", async () => {
+    it("1 - should create note and return  status code of 201", async () => {
       await testManager.createUser();
       const accessToken = await testManager.loginUser();
       const newNote = {
@@ -41,7 +41,7 @@ describe("notes tests", () => {
       });
     });
 
-    it.skip("2 - shouldn't create note and return  status code of 401 if unauthorized", async () => {
+    it("2 - shouldn't create note and return  status code of 401 if unauthorized", async () => {
       await testManager.createUser();
       const accessToken = await testManager.loginUser();
       const newNote = {
@@ -55,7 +55,7 @@ describe("notes tests", () => {
         .expect(401);
     });
 
-    it.skip("3 - shouldn't create note and return  status code of 400 if input has incorrect values", async () => {
+    it("3 - shouldn't create note and return  status code of 400 if input has incorrect values", async () => {
       await testManager.createUser();
       const accessToken = await testManager.loginUser();
       const newNote = {
@@ -71,7 +71,7 @@ describe("notes tests", () => {
   });
 
   describe("GET NOTES", () => {
-    it.skip("1 - should get notes and return  status code of 200", async () => {
+    it("1 - should get notes and return  status code of 200", async () => {
       const { accessToken } = await testManager.createNote();
 
       const res = await request(app)
@@ -82,7 +82,7 @@ describe("notes tests", () => {
       expect(res.body.data.length).toBe(1);
     });
 
-    it.skip("2 - shouldn't get notes and return  status code of 401 if unauthorized", async () => {
+    it("2 - shouldn't get notes and return  status code of 401 if unauthorized", async () => {
       const accessToken = await testManager.createNote();
 
       await request(app)
@@ -93,7 +93,7 @@ describe("notes tests", () => {
   });
 
   describe("GET BY ID NOTE", () => {
-    it.skip("1 - should get note by ID and return  status code of 200", async () => {
+    it("1 - should get note by ID and return  status code of 200", async () => {
       const { accessToken, responseNoteData } = await testManager.createNote();
       const id = responseNoteData.body.data.id;
 
@@ -105,7 +105,7 @@ describe("notes tests", () => {
       expect(res.body.data.id).toEqual(id);
     });
 
-    it.skip("2 - shouldn't get note by ID and return  status code of 401 if unauthorized", async () => {
+    it("2 - shouldn't get note by ID and return  status code of 401 if unauthorized", async () => {
       const { accessToken, responseNoteData } = await testManager.createNote();
       const id = responseNoteData.body.data.id;
 
@@ -169,5 +169,35 @@ describe("notes tests", () => {
     });
   });
 
-  
+  describe("DELETE BY ID NOTE", () => {
+    it("1 - should delete note by ID and return  status code of 204", async () => {
+      const { accessToken, responseNoteData } = await testManager.createNote();
+      const id = responseNoteData.body.data.id;
+
+      await request(app)
+        .delete(`${SETTINGS.PATH.NOTES}/${id}`)
+        .set("Authorization", `Bearer ${accessToken}`)
+        .expect(204);
+    });
+
+    it("2 - shouldn't delete note by ID and return status code of 401 if unauthorized", async () => {
+      const { accessToken, responseNoteData } = await testManager.createNote();
+      const id = responseNoteData.body.data.id;
+
+      await request(app)
+        .delete(`${SETTINGS.PATH.NOTES}/${id}`)
+        .set("Authorization", `Bearer ${accessToken}+1`)
+        .expect(401);
+    });
+
+    it("3 - shouldn't delete note by ID and return status code of 404 if ID not found in the system", async () => {
+      const { accessToken, responseNoteData } = await testManager.createNote();
+      const id = "664f8f7e4eee1938b198aa1f"; // fake note id
+
+      await request(app)
+        .delete(`${SETTINGS.PATH.NOTES}/${id}`)
+        .set("Authorization", `Bearer ${accessToken}`)
+        .expect(404);
+    });
+  });
 });
