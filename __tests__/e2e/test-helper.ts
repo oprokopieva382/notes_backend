@@ -47,12 +47,12 @@ export const testManager = {
     await this.createUser();
     const accessToken = await this.loginUser();
 
-    await request(app)
+    const responseNoteData = await request(app)
       .post(SETTINGS.PATH.NOTES)
       .send(newNote)
       .set("Authorization", `Bearer ${accessToken}`)
       .expect(201);
 
-      return accessToken
+      return { accessToken, responseNoteData };
   },
 };

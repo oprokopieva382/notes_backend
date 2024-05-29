@@ -72,7 +72,7 @@ describe("notes tests", () => {
 
   describe("GET NOTES", () => {
     it.skip("1 - should get notes and return  status code of 200", async () => {
-      const accessToken = await testManager.createNote();
+      const { accessToken } = await testManager.createNote();
 
       const res = await request(app)
         .get(SETTINGS.PATH.NOTES)
@@ -87,6 +87,30 @@ describe("notes tests", () => {
 
       await request(app)
         .get(SETTINGS.PATH.NOTES)
+        .set("Authorization", `Bearer ${accessToken}+1`)
+        .expect(401);
+    });
+  });
+
+  describe("GET BY ID NOTE", () => {
+    it.skip("1 - should get note by ID and return  status code of 200", async () => {
+      const { accessToken, responseNoteData } = await testManager.createNote();
+      const id = responseNoteData.body.data.id;
+
+      const res = await request(app)
+        .get(`${SETTINGS.PATH.NOTES}/${id}`)
+        .set("Authorization", `Bearer ${accessToken}`)
+        .expect(200);
+
+      expect(res.body.data.id).toEqual(id);
+    });
+
+    it.skip("2 - shouldn't get note by ID and return  status code of 401 if unauthorized", async () => {
+      const { accessToken, responseNoteData } = await testManager.createNote();
+      const id = responseNoteData.body.data.id;
+
+      await request(app)
+        .get(`${SETTINGS.PATH.NOTES}/${id}`)
         .set("Authorization", `Bearer ${accessToken}+1`)
         .expect(401);
     });
