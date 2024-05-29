@@ -69,4 +69,26 @@ describe("notes tests", () => {
         .expect(400);
     });
   });
+
+  describe("GET NOTES", () => {
+    it.skip("1 - should get notes and return  status code of 200", async () => {
+      const accessToken = await testManager.createNote();
+
+      const res = await request(app)
+        .get(SETTINGS.PATH.NOTES)
+        .set("Authorization", `Bearer ${accessToken}`)
+        .expect(200);
+
+      expect(res.body.data.length).toBe(1);
+    });
+
+    it.skip("2 - shouldn't get notes and return  status code of 401 if unauthorized", async () => {
+      const accessToken = await testManager.createNote();
+
+      await request(app)
+        .get(SETTINGS.PATH.NOTES)
+        .set("Authorization", `Bearer ${accessToken}+1`)
+        .expect(401);
+    });
+  });
 });

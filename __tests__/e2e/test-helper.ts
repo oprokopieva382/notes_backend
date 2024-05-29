@@ -38,4 +38,21 @@ export const testManager = {
 
     return res.body.data.accessToken;
   },
+
+  async createNote() {
+    const newNote = {
+      title: "Learn e2e testing",
+    };
+
+    await this.createUser();
+    const accessToken = await this.loginUser();
+
+    await request(app)
+      .post(SETTINGS.PATH.NOTES)
+      .send(newNote)
+      .set("Authorization", `Bearer ${accessToken}`)
+      .expect(201);
+
+      return accessToken
+  },
 };
