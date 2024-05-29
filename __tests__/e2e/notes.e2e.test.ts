@@ -14,8 +14,8 @@ describe("notes tests", () => {
   });
 
   afterEach(async () => {
-    //await notesCollection.drop();
-    //await usersCollection.drop();
+    await notesCollection.drop();
+    await usersCollection.drop();
   });
 
   describe("CREATE NOTE", () => {
@@ -59,7 +59,7 @@ describe("notes tests", () => {
       await testManager.createUser();
       const accessToken = await testManager.loginUser();
       const newNote = {
-        title: "",
+        title: "", //incorrect value, minLength: 5
       };
 
       await request(app)
@@ -115,4 +115,59 @@ describe("notes tests", () => {
         .expect(401);
     });
   });
+
+  describe("UPDATE NOTE BY ID", () => {
+    it("1 - should update note and return  status code of 201", async () => {
+      const { accessToken, responseNoteData } = await testManager.createNote();
+      const id = responseNoteData.body.data.id;
+      const newNote = {
+        title: "Polish e2e testing",
+      };
+
+      const res = await request(app)
+        .put(`${SETTINGS.PATH.NOTES}/${id}`)
+        .send(newNote)
+        .set("Authorization", `Bearer ${accessToken}`)
+        .expect(201);
+
+      expect(res.body.data).toEqual({
+        id: responseNoteData.body.data.id,
+        userId: responseNoteData.body.data.userId,
+        title: newNote.title,
+        isDone: expect.any(Boolean),
+        createdAt: expect.any(String),
+      });
+    });
+
+    it("2 - shouldn't update note and return  status code of 401 if unauthorized", async () => {
+      const { accessToken, responseNoteData } = await testManager.createNote();
+      const id = responseNoteData.body.data.id;
+      const newNote = {
+        title: "Polish e2e testing",
+      };
+
+      await request(app)
+        .put(`${SETTINGS.PATH.NOTES}/${id}`)
+        .send(newNote)
+        .set("Authorization", `Bearer ${accessToken}+1`)
+        .expect(401);
+    });
+
+    it("3 - shouldn't update note and return  status code of 400 if input has incorrect values", async () => {
+      const { accessToken, responseNoteData } = await testManager.createNote();
+      const id = responseNoteData.body.data.id;
+      const newNote = {
+        title:
+          "Polish e2e testing, Polish e2e testing, Polish e2e testing, Polish e2e testing, Polish e2e testing, Polish e2e testing, Polish e2e testing", //incorrect value, maxLength: 35
+      };
+
+      await request(app)
+        .put(`${SETTINGS.PATH.NOTES}/${id}`)
+        .send(newNote)
+        .set("Authorization", `Bearer ${accessToken}`)
+        .expect(400);
+    });
+  });
+
+  
 });
