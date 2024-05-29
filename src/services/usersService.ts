@@ -3,15 +3,17 @@ import { randomUUID } from "crypto";
 import { add } from "date-fns/add";
 import { UserSignUpModel } from "../models";
 import { usersRepository } from "../repositories";
+import { bcryptService } from "./bcryptService";
 
 export const usersService = {
   async createUser(inputsData: UserSignUpModel) {
     const { login, password, email } = inputsData;
+    const passwordHash = await bcryptService.createHash(password);
 
     const newUser = {
       _id: new ObjectId(),
       login,
-      password,
+      password: passwordHash,
       email,
       createdAt: new Date().toISOString(),
       emailConfirmation: {
