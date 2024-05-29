@@ -40,5 +40,33 @@ describe("notes tests", () => {
         createdAt: expect.any(String),
       });
     });
+
+    it.skip("2 - shouldn't create note and return  status code of 401 if unauthorized", async () => {
+      await testManager.createUser();
+      const accessToken = await testManager.loginUser();
+      const newNote = {
+        title: "Learn e2e testing",
+      };
+
+      await request(app)
+        .post(SETTINGS.PATH.NOTES)
+        .send(newNote)
+        .set("Authorization", `Bearer ${accessToken}+1`)
+        .expect(401);
+    });
+
+    it.skip("3 - shouldn't create note and return  status code of 400 if input has incorrect values", async () => {
+      await testManager.createUser();
+      const accessToken = await testManager.loginUser();
+      const newNote = {
+        title: "",
+      };
+
+      await request(app)
+        .post(SETTINGS.PATH.NOTES)
+        .send(newNote)
+        .set("Authorization", `Bearer ${accessToken}`)
+        .expect(400);
+    });
   });
 });
