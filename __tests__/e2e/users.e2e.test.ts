@@ -2,7 +2,7 @@ import request from "supertest";
 import { ConnectMongoDB, usersCollection } from "../../src/mongoDB";
 import { app } from "./../../src/app";
 import { SETTINGS } from "../../src/settings";
-import { userTestManager } from "./test-helper";
+import { testManager } from "./test-helper";
 
 describe("users tests", () => {
   beforeAll(async () => {
@@ -70,7 +70,7 @@ describe("users tests", () => {
 
   describe("GET USERS", () => {
     it("1 - should display users for admin and return status code of 200", async () => {
-      await userTestManager.createUser();
+      await testManager.createUser();
 
       const res = await request(app)
         .get(SETTINGS.PATH.USERS)
@@ -81,7 +81,7 @@ describe("users tests", () => {
     });
 
     it("2 - shouldn't display users and return status code of 401 if admin unauthorized", async () => {
-      await userTestManager.createUser();
+      await testManager.createUser();
 
       await request(app)
         .get(SETTINGS.PATH.USERS)
@@ -92,8 +92,8 @@ describe("users tests", () => {
 
   describe("DELETE USER", () => {
     it("1 - should delete user by ID and return status code of 204", async () => {
-      await userTestManager.createUser();
-      const user = await userTestManager.getUser();
+      await testManager.createUser();
+      const user = await testManager.getUser();
 
       await request(app)
         .delete(`${SETTINGS.PATH.USERS}/${user[0].id}`)
@@ -102,7 +102,7 @@ describe("users tests", () => {
     });
 
     it("2 - shouldn't delete user by ID and return status code of 401 if admin unauthorized", async () => {
-      const user = await userTestManager.getUser();
+      const user = await testManager.getUser();
 
       await request(app)
         .delete(`${SETTINGS.PATH.USERS}/${user.id}`)

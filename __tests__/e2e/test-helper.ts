@@ -2,7 +2,7 @@ import request from "supertest";
 import { app } from "../../src/app";
 import { SETTINGS } from "../../src/settings";
 
-export const userTestManager = {
+export const testManager = {
   async createUser() {
     const newUser = {
       login: "clara",
@@ -23,5 +23,19 @@ export const userTestManager = {
       .get(SETTINGS.PATH.USERS)
       .auth("admin", "securetarget");
     return res.body.data;
+  },
+
+  async loginUser() {
+    const loginInput = {
+      login: "clara",
+      password: "clara1030",
+    };
+
+    const res = await request(app)
+      .post(`${SETTINGS.PATH.AUTH}/login`)
+      .send(loginInput)
+      .expect(201);
+
+    return res.body.data.accessToken;
   },
 };
