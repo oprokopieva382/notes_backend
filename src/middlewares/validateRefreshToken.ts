@@ -11,7 +11,6 @@ export const validateRefreshToken = async (
 ) => {
   try {
     const token = req.cookies.refreshToken;
-    console.log(token);
     if (!token) {
       throw ApiError.UnauthorizedError("Not authorized", [
         "You are not authorized for this action",

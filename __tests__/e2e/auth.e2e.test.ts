@@ -74,8 +74,6 @@ describe("auth tests", () => {
 
       const { res, refreshToken } = await testManager.loginUser();
       const accessToken = res.body.data.accessToken;
-      console.log(accessToken);
-      console.log(res);
 
       const response = await request(app)
         .get(`${SETTINGS.PATH.AUTH}/me`)
@@ -123,6 +121,52 @@ describe("auth tests", () => {
         .post(`${SETTINGS.PATH.AUTH}/logout`)
         .set("Cookie", `refreshToken=${refreshToken}`)
         .expect(401);
+    });
+  });
+
+  describe("SIGN UP", () => {
+    it("1 - should sign up user and return status code of 204", async () => {
+      const newUser = {
+        login: "clara",
+        password: "clara1030",
+        email: "clara@gmail.com",
+      };
+
+      await request(app)
+        .post(`${SETTINGS.PATH.AUTH}/sign-up`)
+        .send(newUser)
+        .expect(204);
+    });
+
+    it("2 - shouldn't sign up and return status code of 400 if invalid inputs", async () => {
+      const newUser = {
+        login: "clara",
+        password: "clara1030",
+        email: "clara", //not valid email, should be in pattern: ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
+      };
+
+      await request(app)
+        .post(`${SETTINGS.PATH.AUTH}/sign-up`)
+        .send(newUser)
+        .expect(400);
+    });
+  });
+
+  describe("SIGN UP EMAIL CONFIRMATION", () => {
+    it("1 - should confirm user sing up by email link and return status code of 204", async () => {
+      const code = await testManager.getConfirmCode();
+
+      await request(app)
+        .get(`${SETTINGS.PATH.AUTH}/sign-up-email-confirmation/${code}`)
+        .expect(204);
+    });
+
+    it.skip("2 - shouldn't confirm user sing up by email link and return status code of 400 if the confirmation code is incorrect", async () => {
+      const code = "6654cc84aa3424d5f961995b"; //incorrect code
+
+      await request(app)
+        .get(`${SETTINGS.PATH.AUTH}/sign-up-email-confirmation/${code}`)
+        .expect(400);
     });
   });
 });
