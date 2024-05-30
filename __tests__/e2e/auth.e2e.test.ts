@@ -7,6 +7,7 @@ import {
 import { app } from "./../../src/app";
 import { SETTINGS } from "../../src/settings";
 import { testManager } from "./test-helper";
+import { tokenBlackListCollection } from "../../src/mongoDB/mongo_db_atlas";
 
 describe("auth tests", () => {
   beforeAll(async () => {
@@ -16,6 +17,7 @@ describe("auth tests", () => {
   afterEach(async () => {
     await notesCollection.drop();
     await usersCollection.drop();
+    await tokenBlackListCollection.drop();
   });
 
   describe("LOGIN USER", () => {
@@ -45,7 +47,7 @@ describe("auth tests", () => {
         password: "clara10301", //wrong password
       };
 
-      const res = await request(app)
+      await request(app)
         .post(`${SETTINGS.PATH.AUTH}/login`)
         .send(loginInput)
         .expect(401);
@@ -70,14 +72,17 @@ describe("auth tests", () => {
     it("1 - should auth user and return status code of 200", async () => {
       await testManager.createUser();
 
-      const accessToken = await testManager.loginUser();
+      const { res, refreshToken } = await testManager.loginUser();
+      const accessToken = res.body.data.accessToken;
+      console.log(accessToken);
+      console.log(res);
 
-      const res = await request(app)
+      const response = await request(app)
         .get(`${SETTINGS.PATH.AUTH}/me`)
         .set("Authorization", `Bearer ${accessToken}`)
         .expect(200);
 
-      expect(res.body.data).toEqual({
+      expect(response.body.data).toEqual({
         id: expect.any(String),
         login: expect.any(String),
         email: expect.any(String),
@@ -88,11 +93,35 @@ describe("auth tests", () => {
     it("2 - shouldn't auth user and return status code of 401 if unauthorized", async () => {
       await testManager.createUser();
 
-      const accessToken = await testManager.loginUser();
+      const { res, refreshToken } = await testManager.loginUser();
+      const accessToken = res.body.data.accessToken;
 
-      const res = await request(app)
+      await request(app)
         .get(`${SETTINGS.PATH.AUTH}/me`)
         .set("Authorization", `Bearer ${accessToken}+1`)
+        .expect(401);
+    });
+  });
+
+  describe("LOGOUT USER", () => {
+    it("1 - should logout user and return status code of 204", async () => {
+      await testManager.createUser();
+      const { res, refreshToken } = await testManager.loginUser();
+
+      await request(app)
+        .post(`${SETTINGS.PATH.AUTH}/logout`)
+        .set("Cookie", `refreshToken=${refreshToken}`)
+        .expect(204);
+    });
+
+    it("2 - shouldn't logout user and return status code of 401 if unauthorized", async () => {
+      await testManager.createUser();
+      const { res, refreshToken } = await testManager.loginUser();
+      await testManager.addToBlacklistToken(refreshToken);
+
+      await request(app)
+        .post(`${SETTINGS.PATH.AUTH}/logout`)
+        .set("Cookie", `refreshToken=${refreshToken}`)
         .expect(401);
     });
   });

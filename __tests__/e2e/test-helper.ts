@@ -1,6 +1,8 @@
 import request from "supertest";
 import { app } from "../../src/app";
 import { SETTINGS } from "../../src/settings";
+import { tokenBlackListCollection } from "../../src/mongoDB/mongo_db_atlas";
+import { ObjectId } from "mongodb";
 
 export const testManager = {
   async createUser() {
@@ -36,7 +38,15 @@ export const testManager = {
       .send(loginInput)
       .expect(201);
 
-    return res.body.data.accessToken;
+    const cookies = res.headers["set-cookie"];
+    const cookieArray = Array.isArray(cookies) ? cookies : [cookies];
+
+    const refreshToken = cookieArray
+      .find((cookie: string) => cookie.startsWith("refreshToken="))
+      .split(";")[0]
+      .split("=")[1];
+
+    return { res, refreshToken };
   },
 
   async createNote() {
@@ -45,7 +55,8 @@ export const testManager = {
     };
 
     await this.createUser();
-    const accessToken = await this.loginUser();
+    const { res, refreshToken } = await this.loginUser();
+    const accessToken = res.body.data.accessToken
 
     const responseNoteData = await request(app)
       .post(SETTINGS.PATH.NOTES)
@@ -53,6 +64,15 @@ export const testManager = {
       .set("Authorization", `Bearer ${accessToken}`)
       .expect(201);
 
-      return { accessToken, responseNoteData };
+    return { accessToken, responseNoteData };
+  },
+
+  async addToBlacklistToken(refreshToken: string) {
+    const tokenToMark = {
+      _id: new ObjectId(),
+      token: refreshToken,
+      createdAt: new Date().toISOString(),
+    };
+    return await tokenBlackListCollection.insertOne(tokenToMark);
   },
 };
