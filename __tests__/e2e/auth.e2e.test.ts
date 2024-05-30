@@ -66,5 +66,34 @@ describe("auth tests", () => {
     });
   });
 
-  
+  describe("AUTH ME", () => {
+    it("1 - should auth user and return status code of 200", async () => {
+      await testManager.createUser();
+
+      const accessToken = await testManager.loginUser();
+
+      const res = await request(app)
+        .get(`${SETTINGS.PATH.AUTH}/me`)
+        .set("Authorization", `Bearer ${accessToken}`)
+        .expect(200);
+
+      expect(res.body.data).toEqual({
+        id: expect.any(String),
+        login: expect.any(String),
+        email: expect.any(String),
+        createdAt: expect.any(String),
+      });
+    });
+
+    it("2 - shouldn't auth user and return status code of 401 if unauthorized", async () => {
+      await testManager.createUser();
+
+      const accessToken = await testManager.loginUser();
+
+      const res = await request(app)
+        .get(`${SETTINGS.PATH.AUTH}/me`)
+        .set("Authorization", `Bearer ${accessToken}+1`)
+        .expect(401);
+    });
+  });
 });
