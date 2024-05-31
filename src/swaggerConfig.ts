@@ -3,6 +3,7 @@ import {
   LoginSuccessViewModel,
   NoteInputModel,
   NoteViewModel,
+  UserEmailResending,
   UserLogInModel,
   UserSignUpModel,
   UserViewModel,
@@ -42,7 +43,7 @@ const options = {
         UserLogInModel,
         NoteViewModel,
         NoteInputModel,
-       
+        UserEmailResending,
       },
       securitySchemes: {
         JWT: {
