@@ -17,6 +17,17 @@ export const LoginSuccessViewModel = {
   },
 };
 
+export const UserEmailResending = {
+  type: "object",
+  required: ["email"],
+  properties: {
+    email: { type: "string", pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" },
+  },
+  example: {
+    email: "kevin@example.com",
+  },
+};
+
 export const UserSignUpModel = {
   type: "object",
   required: ["login", "password", "email"],

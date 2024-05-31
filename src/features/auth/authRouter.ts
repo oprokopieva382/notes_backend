@@ -2,6 +2,7 @@ import { Router } from "express";
 import { authController } from "./authController";
 import {
   isAuthorizedMiddleware,
+  validateEmailResending,
   validateLoginInputs,
   validateRefreshToken,
   validateSignUpInputs,
@@ -375,6 +376,49 @@ export const authRouter = Router();
  *                   errors: ["You are not authorized for this action"]
  */
 
+/**
+ * @swagger
+ * /auth/sign-up-email-resending:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Registration in the system. Re-send email with confirmation link
+ *     description: Registration in the system. Re-send email with confirmation link
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: "#/components/schemas/UserEmailResending"
+ *     responses:
+ *       204:
+ *         description: Input data is accepted. Email with confirmation code will be send to passed email address.
+ *       400:
+ *         description: If the input has incorrect value.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               required: ["status", "data", "message", "errors"]
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                 message:
+ *                   type: string
+ *                 errors:
+ *                   type: array
+ *                   items:
+ *                     type: string
+ *             examples:
+ *               bad request:
+ *                 value:
+ *                   status: 400
+ *                   data: {}
+ *                   message: "Validation failed"
+ *                   errors: [{message: "Email must be a valid email address", field: "email"}]
+ */
 authRouter.post("/login", validateLoginInputs, authController.login);
 authRouter.post("/logout", validateRefreshToken, authController.logout);
 authRouter.post("/sign-up", validateSignUpInputs, authController.signUp);
@@ -382,7 +426,11 @@ authRouter.get(
   "/sign-up-email-confirmation/:code",
   authController.emailConfirmation
 );
-authRouter.post("/sign-up-email-resending", authController.emailResending);
+authRouter.post(
+  "/sign-up-email-resending",
+  validateEmailResending,
+  authController.emailResending
+);
 authRouter.post(
   "/refresh-token",
   validateRefreshToken,
