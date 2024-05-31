@@ -197,4 +197,30 @@ describe("auth tests", () => {
         .expect(401);
     });
   });
+
+  describe("SIGN UP EMAIL RESENDING", () => {
+    it("1 - should resend email with confirmation link, return status code of 204", async () => {
+      await testManager.createUser();
+      const newEmail = {
+        email: "clara@gmail.com",
+      };
+
+      await request(app)
+        .post(`${SETTINGS.PATH.AUTH}/sign-up-email-resending`)
+        .send(newEmail)
+        .expect(204);
+    });
+
+    it("2 - should fail the request resend-email with confirmation link, return status code of 400", async () => {
+      await testManager.createUser();
+      const newEmail = {
+        email: "clara@gmail", //not valid email, should be in pattern: ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$
+      };
+
+      await request(app)
+        .post(`${SETTINGS.PATH.AUTH}/sign-up-email-resending`)
+        .send(newEmail)
+        .expect(400);
+    });
+  });
 });

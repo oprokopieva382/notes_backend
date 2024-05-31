@@ -24,7 +24,7 @@ export const UserEmailResending = {
     email: { type: "string", pattern: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" },
   },
   example: {
-    email: "kevin@example.com",
+    email: "kevin@gmail.com",
   },
 };
 
@@ -39,7 +39,7 @@ export const UserSignUpModel = {
   example: {
     login: "kevin1985",
     password: "bdfbdfbd",
-    email: "kevin@example.com",
+    email: "kevin@gmail.com",
   },
 };
 
