@@ -21,18 +21,19 @@ describe("notes tests", () => {
   describe("CREATE NOTE", () => {
     it("1 - should create note and return  status code of 201", async () => {
       await testManager.createUser();
-      const accessToken = await testManager.loginUser();
+      const { res, refreshToken } = await testManager.loginUser();
+      const accessToken = res.body.data.accessToken;
       const newNote = {
         title: "Learn e2e testing",
       };
 
-      const res = await request(app)
+      const response = await request(app)
         .post(SETTINGS.PATH.NOTES)
         .send(newNote)
         .set("Authorization", `Bearer ${accessToken}`)
         .expect(201);
 
-      expect(res.body.data).toEqual({
+      expect(response.body.data).toEqual({
         id: expect.any(String),
         userId: expect.any(String),
         title: newNote.title,
@@ -43,7 +44,8 @@ describe("notes tests", () => {
 
     it("2 - shouldn't create note and return  status code of 401 if unauthorized", async () => {
       await testManager.createUser();
-      const accessToken = await testManager.loginUser();
+      const { res, refreshToken } = await testManager.loginUser();
+      const accessToken = res.body.data.accessToken;
       const newNote = {
         title: "Learn e2e testing",
       };
@@ -57,7 +59,8 @@ describe("notes tests", () => {
 
     it("3 - shouldn't create note and return  status code of 400 if input has incorrect values", async () => {
       await testManager.createUser();
-      const accessToken = await testManager.loginUser();
+      const { res, refreshToken } = await testManager.loginUser();
+      const accessToken = res.body.data.accessToken;
       const newNote = {
         title: "", //incorrect value, minLength: 5
       };

@@ -235,31 +235,6 @@ export const authRouter = Router();
  *     responses:
  *       204:
  *         description: Input data is accepted. Email with confirmation code will be send to passed email address.
- *       401:
- *         description: Unauthorized
- *         content:
- *          application/json:
- *             schema:
- *               type: object
- *               required: ["status", "data", "message", "errors"]
- *               properties:
- *                 status:
- *                   type: string
- *                 data:
- *                   type: object
- *                 message:
- *                   type: string
- *                 errors:
- *                   type: array
- *                   items:
- *                     type: string
- *             examples:
- *               unauthorized:
- *                 value:
- *                   status: 401
- *                   data: {}
- *                   message: "Not authorized"
- *                   errors: ["You are not authorized for this action"]
  *       400:
  *         description: If the inputModel has incorrect values (in particular if the user with the given email or login already exists)
  *         content:
