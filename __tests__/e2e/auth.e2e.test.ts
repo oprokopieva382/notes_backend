@@ -185,5 +185,16 @@ describe("auth tests", () => {
         accessToken: res.body.data.accessToken,
       });
     });
+
+    it("2 - should request new refreshToken but request failed as unauthorized user, return status code of 401", async () => {
+      await testManager.createUser();
+      const { res, refreshToken } = await testManager.loginUser();
+
+      await request(app)
+        .post(`${SETTINGS.PATH.AUTH}/refresh-token`)
+        .set("Cookie", `refreshToken=${refreshToken}+1`)
+        .set("Authorization", `Bearer ${res.body.data.accessToken}+1`)
+        .expect(401);
+    });
   });
 });

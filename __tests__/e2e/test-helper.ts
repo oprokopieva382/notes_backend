@@ -6,7 +6,6 @@ import {
   usersCollection,
 } from "../../src/mongoDB/mongo_db_atlas";
 import { ObjectId } from "mongodb";
-import { authService } from "../../src/services";
 
 export const testManager = {
   async createUser() {
@@ -96,10 +95,9 @@ export const testManager = {
     const userWithCode = await usersCollection.findOne({
       _id: new ObjectId(user[0].id),
     });
-    console.log(userWithCode);
+
     return userWithCode
       ? userWithCode.emailConfirmation.confirmationCode
       : null;
   },
-
 };

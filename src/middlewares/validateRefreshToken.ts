@@ -11,7 +11,7 @@ export const validateRefreshToken = async (
 ) => {
   try {
     const token = req.cookies.refreshToken;
-    console.log("token", token);
+  
     if (!token) {
       throw ApiError.UnauthorizedError("Not authorized", [
         "You are not authorized for this action",
@@ -25,7 +25,6 @@ export const validateRefreshToken = async (
     }
 
     const userId = await jwtService.getUserIdByRefreshToken(token);
-    console.log("userId", userId);
 
     if (!userId) {
       throw ApiError.UnauthorizedError("Not authorized", [
