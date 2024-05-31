@@ -161,12 +161,29 @@ describe("auth tests", () => {
         .expect(204);
     });
 
-    it.skip("2 - shouldn't confirm user sing up by email link and return status code of 400 if the confirmation code is incorrect", async () => {
+    it("2 - shouldn't confirm user sing up by email link and return status code of 400 if the confirmation code is incorrect", async () => {
       const code = "6654cc84aa3424d5f961995b"; //incorrect code
 
       await request(app)
         .get(`${SETTINGS.PATH.AUTH}/sign-up-email-confirmation/${code}`)
         .expect(400);
+    });
+  });
+
+  describe("REFRESH TOKEN", () => {
+    it("1 - should request new refreshToken, return new accessToken & status code of 200", async () => {
+      await testManager.createUser();
+      const { res, refreshToken } = await testManager.loginUser();
+
+      const response = await request(app)
+        .post(`${SETTINGS.PATH.AUTH}/refresh-token`)
+        .set("Cookie", `refreshToken=${refreshToken}`)
+        .set("Authorization", `Bearer ${res.body.data.accessToken}`)
+        .expect(200);
+
+      expect(response.body.data).not.toEqual({
+        accessToken: res.body.data.accessToken,
+      });
     });
   });
 });

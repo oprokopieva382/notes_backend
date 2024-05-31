@@ -6,6 +6,7 @@ import {
   usersCollection,
 } from "../../src/mongoDB/mongo_db_atlas";
 import { ObjectId } from "mongodb";
+import { authService } from "../../src/services";
 
 export const testManager = {
   async createUser() {
@@ -100,4 +101,5 @@ export const testManager = {
       ? userWithCode.emailConfirmation.confirmationCode
       : null;
   },
+
 };
