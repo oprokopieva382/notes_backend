@@ -7,13 +7,6 @@ import { jwtService } from "../../application";
 import { usersQuery } from "../../query_objects";
 
 export const authController = {
-  /**
-   * @swagger
-   * /:
-   *
-   *
-   *
-   */
   signUp: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await authService.signUp(req.body);
@@ -47,7 +40,7 @@ export const authController = {
     try {
       const result = await authService.emailResending(req.body);
 
-      formatResponse(res, 204, {}, "Registration link resented");
+      formatResponse(res, 204, {}, "Registration link resent");
     } catch (error) {
       next(error);
     }
