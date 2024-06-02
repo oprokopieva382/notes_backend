@@ -47,7 +47,7 @@ export const authController = {
     try {
       const result = await authService.emailResending(req.body);
 
-      formatResponse(res, 204, {}, "Registration link resented");
+      formatResponse(res, 204, {}, "Registration link resent");
     } catch (error) {
       next(error);
     }
