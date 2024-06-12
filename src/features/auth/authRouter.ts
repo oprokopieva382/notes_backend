@@ -150,7 +150,7 @@ export const authRouter = Router();
  *                   status: 401
  *                   data: {}
  *                   message: "Not authorized"
- *                   errors: ["You are not authorized for this action"]
+ *                   errors: ["Unauthorized"]
  *       400:
  *         description: If the input has incorrect values or accessToken expired
  *         content:

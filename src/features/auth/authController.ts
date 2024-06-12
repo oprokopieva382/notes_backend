@@ -51,9 +51,7 @@ export const authController = {
       const result = await authService.login(req.body);
 
       if (!result.emailConfirmation.isConfirmed) {
-        throw ApiError.BadRequestError("Login failed", [
-          `User registration is not confirmed yet`,
-        ]);
+        throw ApiError.BadRequestError("Login failed", [`Login failed`]);
       }
       const user = userDTO(result);
       const accessToken = await jwtService.generateAccessToken(user.id);
@@ -75,9 +73,7 @@ export const authController = {
     try {
       const me = await usersQuery.getUserById(req.userId);
       if (!me) {
-        throw ApiError.UnauthorizedError("Not authorized", [
-          "Authorization failed. Can't find user with such id",
-        ]);
+        throw ApiError.UnauthorizedError("Not authorized", [`Not authorized`]);
       }
       formatResponse(res, 200, me, "User authorized");
     } catch (error) {
