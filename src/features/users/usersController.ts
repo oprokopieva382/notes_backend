@@ -14,9 +14,11 @@ export const usersController = {
   ) => {
     try {
       const result = await usersQuery.getUsers();
+
       if (!result) {
         throw ApiError.NotFoundError("Users not found");
       }
+
       formatResponse(res, 200, result, "Users retrieved successfully");
     } catch (error) {
       next(error);
@@ -30,9 +32,11 @@ export const usersController = {
   ) => {
     try {
       const result = await usersService.createUser(req.body);
+
       if (!result) {
         throw ApiError.NotFoundError("Created user not found");
       }
+
       formatResponse(res, 201, userDTO(result), "User created successfully");
     } catch (error) {
       next(error);
@@ -42,11 +46,13 @@ export const usersController = {
   deleteUser: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userToRemove = await usersService.removeUser(req.params.id);
+
       if (!userToRemove) {
         throw ApiError.NotFoundError("User to delete is not found", [
           `User with id ${req.params.id} does not exist`,
         ]);
       }
+      
       formatResponse(res, 204, {}, "User deleted successfully");
     } catch (error) {
       next(error);

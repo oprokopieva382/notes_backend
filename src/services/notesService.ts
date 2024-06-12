@@ -16,8 +16,7 @@ export const notesService = {
 
     const noteToCreate = await notesRepository.createNote(newNote);
     const insertedNoteId = noteToCreate.insertedId;
-    const createdNote = await notesRepository.findNote(insertedNoteId);
-    return createdNote;
+    return await notesRepository.findNote(insertedNoteId);
   },
 
   async removeNote(id: string) {

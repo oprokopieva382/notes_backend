@@ -24,12 +24,11 @@ export const authRepository = {
   },
 
   async confirmUser(id: ObjectId): Promise<UserMongoDBType | null> {
-    const user = await usersCollection.findOneAndUpdate(
+    return await usersCollection.findOneAndUpdate(
       { _id: id },
       { $set: { "emailConfirmation.isConfirmed": true } },
       { returnDocument: "after" }
     );
-    return user;
   },
 
   async updateConfirmationCode(id: ObjectId, code: string): Promise<Boolean> {

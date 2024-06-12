@@ -9,7 +9,7 @@ import { usersQuery } from "../../query_objects";
 export const authController = {
   signUp: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await authService.signUp(req.body);
+      await authService.signUp(req.body);
 
       formatResponse(
         res,
@@ -28,7 +28,7 @@ export const authController = {
     next: NextFunction
   ) => {
     try {
-      const result = await authService.confirmSignUp(req.params.code);
+      await authService.confirmSignUp(req.params.code);
 
       formatResponse(res, 204, {}, "User confirmation made successfully");
     } catch (error) {
@@ -38,7 +38,7 @@ export const authController = {
 
   emailResending: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await authService.emailResending(req.body);
+      await authService.emailResending(req.body);
 
       formatResponse(res, 204, {}, "Registration link resent");
     } catch (error) {
@@ -95,6 +95,7 @@ export const authController = {
         httpOnly: true,
         secure: true,
       });
+
       formatResponse(res, 200, newAccessToken, "New access token sent");
     } catch (error) {
       next(error);
@@ -106,6 +107,7 @@ export const authController = {
       const token = req.cookies.refreshToken;
 
       await authService.logout(token);
+      
       formatResponse(res, 204, {}, "User logout successfully");
     } catch (error) {
       next(error);

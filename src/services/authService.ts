@@ -14,11 +14,13 @@ export const authService = {
   async signUp(data: UserSignUpModel) {
     const { login, password, email } = data;
     const user = await authRepository.findUserByEmail(email);
+
     if (user) {
       return ApiError.BadRequestError("User already exist", [
         `Can't sign up, user with ${email} already exist`,
       ]);
     }
+    
     const passwordHash = await bcryptService.createHash(password);
 
     const newUser = {
@@ -50,6 +52,7 @@ export const authService = {
 
   async confirmSignUp(code: string) {
     const user = await authRepository.findUserByCode(code);
+
     if (!user) {
       throw ApiError.BadRequestError("Confirmation failed", [
         `Can't confirm user registration, no user found in the system`,
@@ -61,6 +64,7 @@ export const authService = {
 
   async emailResending(data: UserSignUpModel) {
     const user = await authRepository.findUserByEmail(data.email);
+
     if (!user) {
       throw ApiError.BadRequestError("Confirmation failed", [
         `Can't confirm user registration, no user found in the system`,
@@ -77,6 +81,7 @@ export const authService = {
 
   async login(data: UserLoginModel) {
     const user = await authRepository.findUserByLogin(data.login);
+
     if (!user) {
       throw ApiError.BadRequestError("Login failed", [
         `No user found, can't login. Check your information or sign up first`,
@@ -103,6 +108,7 @@ export const authService = {
       token: refreshToken,
       createdAt: new Date().toISOString(),
     };
+    
     return await tokenBlackListCollection.insertOne(tokenToMark);
   },
 

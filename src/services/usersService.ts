@@ -27,8 +27,8 @@ export const usersService = {
 
     const userToCreate = await usersRepository.createUser(newUser);
     const insertedUserId = userToCreate.insertedId
-    const createdUser = await usersRepository.findUser(insertedUserId);
-    return createdUser;
+    return await usersRepository.findUser(insertedUserId);
+  
   },
   
   async removeUser(id: string) {
