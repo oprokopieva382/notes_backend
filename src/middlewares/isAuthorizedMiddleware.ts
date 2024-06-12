@@ -10,9 +10,7 @@ export const isAuthorizedMiddleware = async (
 ) => {
   try {
     if (!req.headers.authorization) {
-      throw ApiError.UnauthorizedError("Not authorized", [
-        "You are not authorized for this action",
-      ]);
+      throw ApiError.UnauthorizedError("Not authorized", ["Not authorized"]);
     }
 
     const token = req.headers.authorization.split(" ")[1];
@@ -20,16 +18,12 @@ export const isAuthorizedMiddleware = async (
     const userId = await jwtService.getUserIdByAccessToken(token);
 
     if (!userId) {
-      throw ApiError.UnauthorizedError("Not authorized", [
-        "Authorization failed. Access token is incorrect or expired",
-      ]);
+      throw ApiError.UnauthorizedError("Not authorized", ["Not authorized"]);
     }
 
     const authorizedUser = await usersQuery.getUserById(userId);
     if (!authorizedUser) {
-      throw ApiError.UnauthorizedError("Not authorized", [
-        "Authorization failed. Can't find user with such id",
-      ]);
+      throw ApiError.UnauthorizedError("Not authorized", ["Not authorized"]);
     }
 
     req.userId = authorizedUser.id;
