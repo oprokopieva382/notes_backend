@@ -16,9 +16,7 @@ export const authService = {
     const user = await authRepository.findUserByEmail(email);
 
     if (user) {
-      return ApiError.BadRequestError("User already exist", [
-        `Can't sign up, user with ${email} already exist`,
-      ]);
+      return ApiError.BadRequestError("User already exist", ["Bad Request"]);
     }
     
     const passwordHash = await bcryptService.createHash(password);
@@ -54,9 +52,7 @@ export const authService = {
     const user = await authRepository.findUserByCode(code);
 
     if (!user) {
-      throw ApiError.BadRequestError("Confirmation failed", [
-        `Can't confirm user registration, no user found in the system`,
-      ]);
+      throw ApiError.BadRequestError("Confirmation failed");
     }
 
     return authRepository.confirmUser(user._id);
@@ -66,9 +62,7 @@ export const authService = {
     const user = await authRepository.findUserByEmail(data.email);
 
     if (!user) {
-      throw ApiError.BadRequestError("Confirmation failed", [
-        `Can't confirm user registration, no user found in the system`,
-      ]);
+      throw ApiError.BadRequestError("Confirmation failed");
     }
 
     const newCode = randomUUID();
@@ -83,9 +77,7 @@ export const authService = {
     const user = await authRepository.findUserByLogin(data.login);
 
     if (!user) {
-      throw ApiError.BadRequestError("Login failed", [
-        `No user found, can't login. Check your information or sign up first`,
-      ]);
+      throw ApiError.BadRequestError("Login failed");
     }
 
     const verifyPassword = await bcryptService.verifyPassword(
@@ -94,9 +86,7 @@ export const authService = {
     );
     
     if (!verifyPassword) {
-      throw ApiError.UnauthorizedError("Login failed", [
-        `You are not authorized to login. Password is not match`,
-      ]);
+      throw ApiError.UnauthorizedError("Login failed", [`Unauthorized`]);
     }
 
     return user;
