@@ -38,6 +38,39 @@ The Note Manager Backend is a RESTful API built with Node.js and Express.js. It 
 ✔️ DRY
 ✔️ KISS
 
+### Prerequisites
+
+- **Node.js** (v18.x or later)
+- **Yarn** (v1.22.x or later)
+- **Docker** (optional, for running MongoDB and other services in containers)
+
+### Environment Variables
+
+Create a `.env` file in the root of your project and add the necessary environment variables. Below is an example template:
+
+# .env.template
+PORT=5000
+MONGO_DB_ATLAS=mongodb+srv://<your_username>:<your_password>@<your_cluster-url>/?retryWrites=true&w=majority&appName=<your_appname>
+DB_NAME=NOTES
+NOTES_COLLECTION=notes
+USERS_COLLECTION=users
+ADMIN_AUTH=your_username:your_password
+REGISTRATION_EMAIL=your_email@example.com
+REGISTRATION_PASS=your_passkey (how to get it read here https://stackoverflow.com/questions/45478293/username-and-password-not-accepted-when-using-nodemailer)
+API_URL=http://localhost:5000/
+JWT_ACCESS_TOKEN_SECRET=your_access_token_secret
+JWT_REFRESH_TOKEN_SECRET=your_refresh_token_secret
+BLACK_LIST_TOKEN_COLLECTION=tokenBlackList
+
+### Installation
+1. `git clone git@github.com:oprokopieva382/notes_backend.git`
+2. `yarn install`
+3. In one terminal, run: `yarn watch`
+4. In a second terminal, run: `yarn dev`
+
+### Test
+run in terminal `yarn test`
+
 ## License
 Please refer to the LICENSE in the repo.
 
