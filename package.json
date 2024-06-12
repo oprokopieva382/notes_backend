@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "yarn nodemon --inspect dist/index.js",
     "watch": "tsc -w",
-    "test": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/auth.e2e.test.ts"
+    "test": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/.*..e2e.test.ts"
   },
   "dependencies": {
     "@types/swagger-ui-express": "^4.1.6",
