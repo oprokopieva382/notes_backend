@@ -62,7 +62,7 @@ API_URL=http://localhost:5000/
 JWT_ACCESS_TOKEN_SECRET=your_access_token_secret
 JWT_REFRESH_TOKEN_SECRET=your_refresh_token_secret
 BLACK_LIST_TOKEN_COLLECTION=tokenBlackList
-
+```
 ### Installation
 1. `git clone git@github.com:oprokopieva382/notes_backend.git`
 2. `yarn install`
