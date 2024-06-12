@@ -49,6 +49,7 @@ The Note Manager Backend is a RESTful API built with Node.js and Express.js. It 
 Create a `.env` file in the root of your project and add the necessary environment variables. Below is an example template:
 
 # .env.template
+```plaintext
 PORT=5000
 MONGO_DB_ATLAS=mongodb+srv://<your_username>:<your_password>@<your_cluster-url>/?retryWrites=true&w=majority&appName=<your_appname>
 DB_NAME=NOTES
