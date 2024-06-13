@@ -9,6 +9,7 @@ import { authRepository, usersRepository } from "../repositories";
 import { emailAdapter } from "../adapters";
 import { SETTINGS } from "./../settings";
 import { jwtService } from "../application";
+import i18next from "../i18n";
 
 export const authService = {
   async signUp(data: UserSignUpModel) {
@@ -16,9 +17,11 @@ export const authService = {
     const user = await authRepository.findUserByEmail(email);
 
     if (user) {
-      return ApiError.BadRequestError("User already exist", ["Bad Request"]);
+      throw ApiError.BadRequestError(i18next.t("400"), [
+        i18next.t("ns2:400_auth"),
+      ]);
     }
-    
+
     const passwordHash = await bcryptService.createHash(password);
 
     const newUser = {
@@ -52,7 +55,9 @@ export const authService = {
     const user = await authRepository.findUserByCode(code);
 
     if (!user) {
-      throw ApiError.BadRequestError("Confirmation failed", ["Bad Request"]);
+      throw ApiError.BadRequestError(i18next.t("400"), [
+        i18next.t("ns2:400_auth"),
+      ]);
     }
 
     return authRepository.confirmUser(user._id);
@@ -62,7 +67,9 @@ export const authService = {
     const user = await authRepository.findUserByEmail(data.email);
 
     if (!user) {
-      throw ApiError.BadRequestError("Confirmation failed", ["Bad Request"]);
+      throw ApiError.BadRequestError(i18next.t("400"), [
+        i18next.t("ns2:400_auth"),
+      ]);
     }
 
     const newCode = randomUUID();
@@ -77,16 +84,20 @@ export const authService = {
     const user = await authRepository.findUserByLogin(data.login);
 
     if (!user) {
-      throw ApiError.BadRequestError("Login failed", ["Bad Request"]);
+      throw ApiError.BadRequestError(i18next.t("400"), [
+        i18next.t("ns2:400_auth"),
+      ]);
     }
 
     const verifyPassword = await bcryptService.verifyPassword(
       data.password,
       user.password
     );
-    
+
     if (!verifyPassword) {
-      throw ApiError.UnauthorizedError("Login failed", [`Unauthorized`]);
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
+      ]);
     }
 
     return user;
@@ -98,7 +109,7 @@ export const authService = {
       token: refreshToken,
       createdAt: new Date().toISOString(),
     };
-    
+
     return await tokenBlackListCollection.insertOne(tokenToMark);
   },
 

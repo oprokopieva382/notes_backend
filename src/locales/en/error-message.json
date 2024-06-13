@@ -1,4 +1,5 @@
 {
   "401_admin": "You are not authorized for this action",
-  "400_auth": "Bad Request"
+  "400_auth": "Bad Request",
+  "401_auth": "Unauthorized"
 }

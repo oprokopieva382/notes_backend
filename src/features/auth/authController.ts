@@ -5,6 +5,7 @@ import { ApiError } from "../../helper/api_error";
 import { userDTO } from "../../DTO/user_dto";
 import { jwtService } from "../../application";
 import { usersQuery } from "../../query_objects";
+import i18next from "../../i18n";
 
 export const authController = {
   signUp: async (req: Request, res: Response, next: NextFunction) => {
@@ -51,7 +52,9 @@ export const authController = {
       const result = await authService.login(req.body);
 
       if (!result.emailConfirmation.isConfirmed) {
-        throw ApiError.BadRequestError("Login failed", [`Login failed`]);
+        throw ApiError.BadRequestError(i18next.t("400"), [
+          i18next.t("ns2:400_auth"),
+        ]);
       }
       const user = userDTO(result);
       const accessToken = await jwtService.generateAccessToken(user.id);
@@ -68,12 +71,13 @@ export const authController = {
     }
   },
 
-
   me: async (req: Request, res: Response, next: NextFunction) => {
     try {
       const me = await usersQuery.getUserById(req.userId);
       if (!me) {
-        throw ApiError.UnauthorizedError("Not authorized", [`Not authorized`]);
+         throw ApiError.UnauthorizedError(i18next.t("401"), [
+           i18next.t("ns2:401_auth"),
+         ]);
       }
       formatResponse(res, 200, me, "User authorized");
     } catch (error) {
@@ -103,7 +107,7 @@ export const authController = {
       const token = req.cookies.refreshToken;
 
       await authService.logout(token);
-      
+
       formatResponse(res, 204, {}, "User logout successfully");
     } catch (error) {
       next(error);
