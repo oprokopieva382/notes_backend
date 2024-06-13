@@ -5,6 +5,7 @@ import {
   validationResult,
 } from "express-validator";
 import { ApiError } from "../helper/api_error";
+import i18next from "../i18n";
 
 export const validateEmailResending = async (
   req: Request,
@@ -18,11 +19,11 @@ export const validateEmailResending = async (
       body("email")
         .trim()
         .isString()
-        .withMessage("Email field must be a string")
+        .withMessage(i18next.t("ns2:400_field_string"))
         .notEmpty()
-        .withMessage("Email field is required")
+        .withMessage(i18next.t("ns2:400_field_required"))
         .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
-        .withMessage("Email must be a valid email address")
+        .withMessage(i18next.t("ns2:400_field_invalid"))
     );
 
     await Promise.all(allBodyValidation.map((item) => item.run(req)));
@@ -33,7 +34,7 @@ export const validateEmailResending = async (
         onlyFirstError: true,
       }) as FieldValidationError[];
       throw ApiError.BadRequestError(
-        "Validation failed",
+        i18next.t("400"),
         errorMessages.map((error) => ({
           message: error.msg,
           field: error.path,
