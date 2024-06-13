@@ -5,6 +5,7 @@ import { ApiError } from "../../helper/api_error";
 import { usersQuery } from "../../query_objects";
 import { formatResponse } from "../../utils/responseFormatter";
 import { userDTO } from './../../DTO/user_dto';
+import i18next from "../../i18n";
 
 export const usersController = {
   getUsers: async (
@@ -16,7 +17,7 @@ export const usersController = {
       const result = await usersQuery.getUsers();
 
       if (!result) {
-        throw ApiError.NotFoundError("Users not found");
+        throw ApiError.NotFoundError(i18next.t("404"));
       }
 
       formatResponse(res, 200, result, "Users retrieved successfully");
@@ -34,7 +35,7 @@ export const usersController = {
       const result = await usersService.createUser(req.body);
 
       if (!result) {
-        throw ApiError.NotFoundError("Created user not found");
+        throw ApiError.NotFoundError(i18next.t("404"));
       }
 
       formatResponse(res, 201, userDTO(result), "User created successfully");
@@ -48,9 +49,7 @@ export const usersController = {
       const userToRemove = await usersService.removeUser(req.params.id);
 
       if (!userToRemove) {
-        throw ApiError.NotFoundError("User to delete is not found", [
-          `User with id ${req.params.id} does not exist`,
-        ]);
+        throw ApiError.NotFoundError(i18next.t("404"), [i18next.t("ns2:404_auth")]);
       }
       
       formatResponse(res, 204, {}, "User deleted successfully");

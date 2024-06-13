@@ -2,6 +2,7 @@
   "401_admin": "You are not authorized for this action",
   "400_auth": "Bad Request",
   "401_auth": "Unauthorized",
+  "404_auth": "Not found",
   "400_field_string": "Input must be a string",
   "400_field_required": "This field is required",
   "400_field_invalid": "Input is invalid",

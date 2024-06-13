@@ -5,6 +5,7 @@ import { formatResponse } from "../../utils/responseFormatter";
 import { NoteInputModel, NoteViewModel } from "../../models";
 import { notesService } from "../../services";
 import { noteDTO } from "./../../DTO/note_dto";
+import i18next from "../../i18n";
 
 export const notesController = {
   getNotes: async (
@@ -16,7 +17,7 @@ export const notesController = {
       const result = await notesQuery.getNotes();
 
       if (!result) {
-        throw ApiError.NotFoundError("Notes not found");
+        throw ApiError.NotFoundError(i18next.t("404"));
       }
 
       formatResponse(res, 200, result, "Notes retrieved successfully");
@@ -34,9 +35,7 @@ export const notesController = {
       const result = await notesQuery.getNoteById(req.params.id);
 
       if (!result) {
-        throw ApiError.NotFoundError(
-          `Note with id ${req.params.id} is not found`
-        );
+        throw ApiError.NotFoundError(i18next.t("404"));
       }
 
       formatResponse(res, 200, result, "Note retrieved successfully");
@@ -54,7 +53,7 @@ export const notesController = {
       const result = await notesService.createNote(req.body, req.userId);
 
       if (!result) {
-        throw ApiError.NotFoundError(`Note can't be created`);
+        throw ApiError.NotFoundError(i18next.t("404"));
       }
 
       formatResponse(res, 201, noteDTO(result), "Note created successfully");
@@ -68,8 +67,8 @@ export const notesController = {
       const noteToRemove = await notesService.removeNote(req.params.id);
 
       if (!noteToRemove) {
-        throw ApiError.NotFoundError("Note to delete is not found", [
-          `Note with id ${req.params.id} does not exist`,
+        throw ApiError.NotFoundError(i18next.t("404"), [
+          i18next.t("ns2:404_auth"),
         ]);
       }
 
@@ -88,11 +87,11 @@ export const notesController = {
       const result = await notesService.updateNote(req.params.id, req.body);
 
       if (!result) {
-        throw ApiError.NotFoundError("Note to update is not found", [
-          `Note with id ${req.params.id} does not exist`,
+        throw ApiError.NotFoundError(i18next.t("404"), [
+          i18next.t("ns2:404_auth"),
         ]);
       }
-      
+
       formatResponse(res, 201, noteDTO(result), "Note updated successfully");
     } catch (error) {
       next(error);
