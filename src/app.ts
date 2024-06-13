@@ -1,5 +1,4 @@
 import express from "express";
-import { version } from "../package.json";
 import cookieParser from "cookie-parser";
 import swaggerUi from "swagger-ui-express";
 import specs from "./swaggerConfig"
@@ -20,5 +19,7 @@ app.use(errorHandlerMiddleware);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
 app.get("/", (req, res) => {
-  res.status(200).json({ version });
+  res.status(200).json({ version: "1.0.0" });
 });
+
+console.log("Server started");

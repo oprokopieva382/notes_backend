@@ -52,7 +52,7 @@ export const authService = {
     const user = await authRepository.findUserByCode(code);
 
     if (!user) {
-      throw ApiError.BadRequestError("Confirmation failed");
+      throw ApiError.BadRequestError("Confirmation failed", ["Bad Request"]);
     }
 
     return authRepository.confirmUser(user._id);
@@ -62,7 +62,7 @@ export const authService = {
     const user = await authRepository.findUserByEmail(data.email);
 
     if (!user) {
-      throw ApiError.BadRequestError("Confirmation failed");
+      throw ApiError.BadRequestError("Confirmation failed", ["Bad Request"]);
     }
 
     const newCode = randomUUID();
@@ -77,7 +77,7 @@ export const authService = {
     const user = await authRepository.findUserByLogin(data.login);
 
     if (!user) {
-      throw ApiError.BadRequestError("Login failed");
+      throw ApiError.BadRequestError("Login failed", ["Bad Request"]);
     }
 
     const verifyPassword = await bcryptService.verifyPassword(
