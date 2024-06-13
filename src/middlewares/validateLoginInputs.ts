@@ -25,7 +25,7 @@ export const validateLoginInputs = async (
         .isLength({ max: 15 })
         .withMessage(i18next.t("ns2:400_login_max"))
         .isLength({ min: 5 })
-        .withMessage(i18next.t("ns2:400_login_min"))
+        .withMessage(i18next.t("ns2:400_login_max"))
     );
 
     allBodyValidation.push(

@@ -5,6 +5,7 @@ import {
   validationResult,
 } from "express-validator";
 import { ApiError } from "../helper/api_error";
+import i18next from "../i18n";
 
 export const validateNoteInputs = async (
   req: Request,
@@ -18,13 +19,13 @@ export const validateNoteInputs = async (
       body("title")
         .trim()
         .isString()
-        .withMessage("Title field must be a string")
+        .withMessage(i18next.t("ns2:400_field_string"))
         .notEmpty()
-        .withMessage("Title field is required")
+        .withMessage(i18next.t("ns2:400_field_required"))
         .isLength({ max: 35 })
-        .withMessage("max length of title 35 characters")
+        .withMessage(i18next.t("ns2:400_title_max"))
         .isLength({ min: 5 })
-        .withMessage("min length of title 5 characters")
+        .withMessage(i18next.t("ns2:400_title_min"))
     );
 
     await Promise.all(allBodyValidation.map((item) => item.run(req)));
@@ -35,7 +36,7 @@ export const validateNoteInputs = async (
         onlyFirstError: true,
       }) as FieldValidationError[];
       throw ApiError.BadRequestError(
-        "Validation failed",
+        i18next.t("400"),
         errorMessages.map((error) => ({
           message: error.msg,
           field: error.path,
