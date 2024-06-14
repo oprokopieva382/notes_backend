@@ -3,6 +3,7 @@ import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
 import { jwtService } from "../application";
 import { ApiError } from "../helper/api_error";
 import { usersQuery } from "../query_objects";
+import i18next from "../i18n";
 
 export const validateRefreshToken = async (
   req: Request,
@@ -11,31 +12,31 @@ export const validateRefreshToken = async (
 ) => {
   try {
     const token = req.cookies.refreshToken;
-  
+
     if (!token) {
-      throw ApiError.UnauthorizedError("Not authorized", [
-        "You are not authorized for this action",
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
       ]);
     }
 
     if (typeof token !== "string") {
-      throw ApiError.BadRequestError("Not authorized", [
-        "Authorization failed. Refresh token must be a string",
+      throw ApiError.BadRequestError(i18next.t("400"), [
+        i18next.t("ns2:400_auth"),
       ]);
     }
 
     const userId = await jwtService.getUserIdByRefreshToken(token);
 
     if (!userId) {
-      throw ApiError.UnauthorizedError("Not authorized", [
-        "Authorization failed. Refresh token is incorrect or expired",
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
       ]);
     }
 
     const authorizedUser = await usersQuery.getUserById(userId);
     if (!authorizedUser) {
-      throw ApiError.UnauthorizedError("Not authorized", [
-        "Authorization failed. Can't find user with such id",
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
       ]);
     }
 
@@ -43,8 +44,8 @@ export const validateRefreshToken = async (
       token,
     });
     if (invalidRefreshToken) {
-      throw ApiError.UnauthorizedError("Not authorized", [
-        "Authorization failed. We can't use this refresh token",
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
       ]);
     }
 

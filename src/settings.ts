@@ -14,6 +14,7 @@ export const SETTINGS = {
   API_URL: process.env.API_URL || "",
   JWT_ACCESS_TOKEN_SECRET: process.env.JWT_ACCESS_TOKEN_SECRET || "",
   JWT_REFRESH_TOKEN_SECRET: process.env.JWT_REFRESH_TOKEN_SECRET || "",
+  VERSION: process.env.VERSION || "",
   PATH: {
     USERS: "/users",
     NOTES: "/notes",

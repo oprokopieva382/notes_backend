@@ -1,0 +1,15 @@
+{
+  "401_admin": "You are not authorized for this action",
+  "400_auth": "Bad Request",
+  "401_auth": "Unauthorized",
+  "404_auth": "Not found",
+  "400_field_string": "Input must be a string",
+  "400_field_required": "This field is required",
+  "400_field_invalid": "Input is invalid",
+  "400_login_max": "max length of login 15 characters",
+  "400_login_min": "min length of login 5 characters",
+  "400_password_min": "min length of password 6 characters",
+  "400_password_max": "max length of password 20 characters",
+  "400_title_max": "max length of title 35 characters",
+  "400_title_min": "min length of title 5 characters"
+}

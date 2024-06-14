@@ -6,7 +6,7 @@ export const noteDTO = (note: NoteMongoDBType): NoteViewModel => {
     id: note._id.toString(),
     userId: note.userId,
     title: note.title,
-    isDone: note.isDone? note.isDone : false,
+    isDone: note.isDone ? note.isDone : false,
     createdAt: note.createdAt,
   };
 };

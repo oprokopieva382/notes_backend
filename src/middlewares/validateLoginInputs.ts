@@ -5,6 +5,7 @@ import {
   validationResult,
 } from "express-validator";
 import { ApiError } from "../helper/api_error";
+import i18next from "../i18n";
 
 export const validateLoginInputs = async (
   req: Request,
@@ -18,26 +19,26 @@ export const validateLoginInputs = async (
       body("login")
         .trim()
         .isString()
-        .withMessage("login field must be a string")
+        .withMessage(i18next.t("ns2:400_field_string"))
         .notEmpty()
-        .withMessage("login field is required")
+        .withMessage(i18next.t("ns2:400_field_required"))
         .isLength({ max: 15 })
-        .withMessage("max length of login 15 characters")
+        .withMessage(i18next.t("ns2:400_login_max"))
         .isLength({ min: 5 })
-        .withMessage("min length of login 5 characters")
+        .withMessage(i18next.t("ns2:400_login_max"))
     );
 
     allBodyValidation.push(
       body("password")
         .trim()
         .isString()
-        .withMessage("Password field must be a string")
+        .withMessage(i18next.t("ns2:400_field_string"))
         .notEmpty()
-        .withMessage("Password field is required")
+        .withMessage(i18next.t("ns2:400_field_required"))
         .isLength({ max: 20 })
-        .withMessage("max length of password 20 characters")
+        .withMessage(i18next.t("ns2:400_password_max"))
         .isLength({ min: 6 })
-        .withMessage("min length of password 6 characters")
+        .withMessage(i18next.t("ns2:400_password_min"))
     );
 
     await Promise.all(allBodyValidation.map((item) => item.run(req)));
@@ -48,7 +49,7 @@ export const validateLoginInputs = async (
         onlyFirstError: true,
       }) as FieldValidationError[];
       throw ApiError.BadRequestError(
-        "Validation failed",
+        i18next.t("400"),
         errorMessages.map((error) => ({
           message: error.msg,
           field: error.path,

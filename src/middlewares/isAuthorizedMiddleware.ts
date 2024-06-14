@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { jwtService } from "../application";
 import { ApiError } from "../helper/api_error";
 import { usersQuery } from "../query_objects";
+import i18next from "../i18n";
 
 export const isAuthorizedMiddleware = async (
   req: Request,
@@ -10,7 +11,9 @@ export const isAuthorizedMiddleware = async (
 ) => {
   try {
     if (!req.headers.authorization) {
-      throw ApiError.UnauthorizedError("Not authorized", ["Not authorized"]);
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
+      ]);
     }
 
     const token = req.headers.authorization.split(" ")[1];
@@ -18,12 +21,16 @@ export const isAuthorizedMiddleware = async (
     const userId = await jwtService.getUserIdByAccessToken(token);
 
     if (!userId) {
-      throw ApiError.UnauthorizedError("Not authorized", ["Not authorized"]);
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
+      ]);
     }
 
     const authorizedUser = await usersQuery.getUserById(userId);
     if (!authorizedUser) {
-      throw ApiError.UnauthorizedError("Not authorized", ["Not authorized"]);
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
+      ]);
     }
 
     req.userId = authorizedUser.id;

@@ -26,12 +26,11 @@ export const usersService = {
     };
 
     const userToCreate = await usersRepository.createUser(newUser);
-    const insertedUserId = userToCreate.insertedId
+    const insertedUserId = userToCreate.insertedId;
     return await usersRepository.findUser(insertedUserId);
-  
   },
-  
+
   async removeUser(id: string) {
-    return await  usersRepository.removeUser(id);
-  }
+    return await usersRepository.removeUser(id);
+  },
 };

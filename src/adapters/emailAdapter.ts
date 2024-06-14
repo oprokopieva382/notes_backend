@@ -21,6 +21,6 @@ export const emailAdapter = {
         <a href="${link}">${link}</a></p>
       `,
     });
-    return !!emailInfo
+    return !!emailInfo;
   },
 };

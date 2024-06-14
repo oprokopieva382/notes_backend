@@ -1,5 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 import { ApiError } from "../helper/api_error";
+import i18next from "../i18n";
 import { SETTINGS } from "../settings";
 
 export const isAdminMiddleware = (
@@ -9,8 +10,8 @@ export const isAdminMiddleware = (
 ) => {
   const auth = req.headers["authorization"] as string;
   if (!auth) {
-    throw ApiError.UnauthorizedError("Not authorized", [
-      "You are not authorized for this action",
+    throw ApiError.UnauthorizedError(i18next.t("401"), [
+      i18next.t("ns2:401_admin"),
     ]);
   }
 
@@ -21,8 +22,8 @@ export const isAdminMiddleware = (
   const encodedAuth = bufDecoded.toString("base64");
 
   if (auth.slice(6) !== encodedAuth || auth.slice(0, 6) !== "Basic ") {
-    throw ApiError.UnauthorizedError("Not authorized", [
-      "You are not authorized for this action",
+    throw ApiError.UnauthorizedError(i18next.t("401"), [
+      i18next.t("ns2:401_admin"),
     ]);
   }
   next();
