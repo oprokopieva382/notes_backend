@@ -21,9 +21,9 @@ export const isAuthorizedMiddleware = async (
     const userId = await jwtService.getUserIdByAccessToken(token);
 
     if (!userId) {
-     throw ApiError.UnauthorizedError(i18next.t("401"), [
-       i18next.t("ns2:401_auth"),
-     ]);
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
+      ]);
     }
 
     const authorizedUser = await usersQuery.getUserById(userId);

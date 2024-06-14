@@ -75,9 +75,9 @@ export const authController = {
     try {
       const me = await usersQuery.getUserById(req.userId);
       if (!me) {
-         throw ApiError.UnauthorizedError(i18next.t("401"), [
-           i18next.t("ns2:401_auth"),
-         ]);
+        throw ApiError.UnauthorizedError(i18next.t("401"), [
+          i18next.t("ns2:401_auth"),
+        ]);
       }
       formatResponse(res, 200, me, "User authorized");
     } catch (error) {

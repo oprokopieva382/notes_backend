@@ -19,4 +19,4 @@ export class ApiError extends Error {
   static NotFoundError(message: string, errors: any[] = []) {
     return new ApiError(404, message, errors);
   }
-};
+}

@@ -163,7 +163,6 @@ export const notesRouter = Router();
  *                   errors: ["You are not authorized for this action"]
  */
 
-
 /**
  * @swagger
  * /notes/:

@@ -10,7 +10,6 @@ export const errorHandlerMiddleware = (
 ) => {
   console.log(err);
   if (err instanceof ApiError) {
-  
     return formatResponse(res, err.status, {}, err.message, err.errors);
   }
   return formatResponse(res, 500, {}, "Internal Server Error", [err.message]);

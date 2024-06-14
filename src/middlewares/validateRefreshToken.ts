@@ -12,7 +12,7 @@ export const validateRefreshToken = async (
 ) => {
   try {
     const token = req.cookies.refreshToken;
-  
+
     if (!token) {
       throw ApiError.UnauthorizedError(i18next.t("401"), [
         i18next.t("ns2:401_auth"),
@@ -20,9 +20,9 @@ export const validateRefreshToken = async (
     }
 
     if (typeof token !== "string") {
-       throw ApiError.BadRequestError(i18next.t("400"), [
-         i18next.t("ns2:400_auth"),
-       ]);
+      throw ApiError.BadRequestError(i18next.t("400"), [
+        i18next.t("ns2:400_auth"),
+      ]);
     }
 
     const userId = await jwtService.getUserIdByRefreshToken(token);

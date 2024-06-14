@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { usersService } from "../../services";
-import { UserSignUpModel, UserViewModel} from "../../models";
+import { UserSignUpModel, UserViewModel } from "../../models";
 import { ApiError } from "../../helper/api_error";
 import { usersQuery } from "../../query_objects";
 import { formatResponse } from "../../utils/responseFormatter";
-import { userDTO } from './../../DTO/user_dto';
+import { userDTO } from "./../../DTO/user_dto";
 import i18next from "../../i18n";
 
 export const usersController = {
@@ -49,9 +49,11 @@ export const usersController = {
       const userToRemove = await usersService.removeUser(req.params.id);
 
       if (!userToRemove) {
-        throw ApiError.NotFoundError(i18next.t("404"), [i18next.t("ns2:404_auth")]);
+        throw ApiError.NotFoundError(i18next.t("404"), [
+          i18next.t("ns2:404_auth"),
+        ]);
       }
-      
+
       formatResponse(res, 204, {}, "User deleted successfully");
     } catch (error) {
       next(error);
