@@ -3,7 +3,7 @@ import { jwtService } from "../application";
 import { ApiError } from "../helper/api_error";
 import { usersQuery } from "../query_objects";
 import i18next from "../i18n";
-import redisClient from "../radisClient";
+import redisClient from "../redisClient";
 
 export const isAuthorizedMiddleware = async (
   req: Request,
@@ -27,25 +27,23 @@ export const isAuthorizedMiddleware = async (
       ]);
     }
 
-    let cachedUser = await redisClient.get(`user:${userId}`);
-    console.log(cachedUser);
-
     let authorizedUser;
-    if (cachedUser) {
-      authorizedUser = JSON.parse(cachedUser);
-    } else {
+    const cachedUser = await redisClient.get(`user:${userId}`);
+
+    if (!cachedUser) {
       authorizedUser = await usersQuery.getUserById(userId);
-      console.log("authorizedUser called", authorizedUser);
       if (!authorizedUser) {
         throw ApiError.UnauthorizedError(i18next.t("401"), [
           i18next.t("ns2:401_auth"),
         ]);
       }
-
       await redisClient.set(`user:${userId}`, JSON.stringify(authorizedUser), {
         EX: 3600, // Cache for 1 hour
       });
+    } else {
+      authorizedUser = JSON.parse(cachedUser);
     }
+
     req.userId = authorizedUser.id;
     next();
   } catch (error) {
