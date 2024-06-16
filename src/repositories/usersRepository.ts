@@ -7,12 +7,6 @@ export const usersRepository = {
     return await usersCollection.insertOne(newUser);
   },
   
-  async findUser(userId: ObjectId): Promise<UserMongoDBType | null> {
-    return await usersCollection.findOne({
-      _id: userId,
-    });
-  },
-
   async removeUser(id: string) {
     return await usersCollection.findOneAndDelete({
       _id: new ObjectId(id),

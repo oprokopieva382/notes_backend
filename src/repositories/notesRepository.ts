@@ -7,12 +7,6 @@ export const notesRepository = {
     return await notesCollection.insertOne(newNote);
   },
 
-  async findNote(noteId: ObjectId): Promise<NoteMongoDBType | null> {
-    return await notesCollection.findOne({
-      _id: noteId,
-    });
-  },
-
   async removeNote(noteId: string): Promise<NoteMongoDBType | null> {
     return await notesCollection.findOneAndDelete({
       _id: new ObjectId(noteId),
