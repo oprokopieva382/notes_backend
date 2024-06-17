@@ -7,6 +7,7 @@ import { usersRouter } from "./features/users";
 import { notesRouter } from "./features/notes";
 import { authRouter } from "./features/auth";
 import { errorHandlerMiddleware } from "./middlewares";
+import { logger } from "./utils/logger";
 
 export const app = express();
 
@@ -22,4 +23,4 @@ app.get("/", (req, res) => {
   res.status(200).json({ version: SETTINGS.VERSION});
 });
 
-console.log("Server started");
+logger.info("Server started");
