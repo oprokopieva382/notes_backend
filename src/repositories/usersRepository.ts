@@ -1,7 +1,6 @@
 import { ObjectId } from "mongodb";
 import { UserMongoDBType, usersCollection } from "../mongoDB";
 
-
 export const usersRepository = {
   async createUser(newUser: UserMongoDBType) {
     return await usersCollection.insertOne(newUser);
