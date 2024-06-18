@@ -1,9 +1,15 @@
 import { ObjectId } from "mongodb";
 import { NoteInputModel } from "../models";
 import { notesRepository } from "../repositories";
+import { databaseResponseTimeHistogram } from "../utils/metrics";
 
 export const notesService = {
   async createNote(inputsData: NoteInputModel, userId: string) {
+    const metricsLabels = {
+      operation: "createNote",
+    };
+    const timer = databaseResponseTimeHistogram.startTimer();
+
     const { title, isDone = false } = inputsData;
 
     const newNote = {
@@ -13,9 +19,14 @@ export const notesService = {
       isDone,
       createdAt: new Date().toISOString(),
     };
-
-    const noteToCreate = await notesRepository.createNote(newNote);
-    return { ...newNote, _id: noteToCreate.insertedId };
+    try {
+      const noteToCreate = await notesRepository.createNote(newNote);
+      timer({ ...metricsLabels, success: "true" });
+      return { ...newNote, _id: noteToCreate.insertedId };
+    } catch (error) {
+      timer({ ...metricsLabels, success: "false" });
+      throw error;
+    }
   },
 
   async removeNote(id: string) {

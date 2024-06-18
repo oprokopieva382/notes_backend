@@ -4,9 +4,15 @@ import { add } from "date-fns/add";
 import { UserSignUpModel } from "../models";
 import { usersRepository } from "../repositories";
 import { bcryptService } from "./bcryptService";
+import { databaseResponseTimeHistogram } from "../utils/metrics";
 
 export const usersService = {
   async createUser(inputsData: UserSignUpModel) {
+    const metricsLabels = {
+      operation: "createUser",
+    };
+    const timer = databaseResponseTimeHistogram.startTimer();
+
     const { login, password, email } = inputsData;
     const passwordHash = await bcryptService.createHash(password);
 
@@ -24,9 +30,14 @@ export const usersService = {
         isConfirmed: true,
       },
     };
-
-    const userToCreate = await usersRepository.createUser(newUser);
-    return { ...newUser, _id: userToCreate.insertedId };
+    try {
+      const userToCreate = await usersRepository.createUser(newUser);
+      timer({ ...metricsLabels, success: "true" });
+      return { ...newUser, _id: userToCreate.insertedId };
+    } catch (error) {
+      timer({ ...metricsLabels, success: "false" });
+      throw error;
+    }
   },
 
   async removeUser(id: string) {
