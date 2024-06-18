@@ -24,6 +24,7 @@ The Note Manager Backend is a RESTful API built with Node.js and Express.js. It 
 - **bcrypt**: For hashing passwords.
 - **Swagger**: For API documentation.
 - **dotenv**: For environment variable management.
+- **Prometheus**: For measure API performance
 - **Jest**: Testing framework.
 - **Supertest**: For testing HTTP endpoints.
 
