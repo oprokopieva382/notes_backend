@@ -17,12 +17,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "securetarget",
+									"value": "{{password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "admin",
+									"value": "{{username}}",
 									"type": "string"
 								}
 							]
@@ -31,7 +31,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"testMe\",\r\n    \"password\": \"testadmin\",\r\n    \"email\": \"oprokopieva382@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"login\": \"{{login}}\",\r\n    \"password\": \"{{userPassword}}\",\r\n    \"email\": \"{{userEmail}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -61,12 +61,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "securetarget",
+									"value": "{{password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "admin",
+									"value": "{{username}}",
 									"type": "string"
 								}
 							]
@@ -102,12 +102,12 @@
 							"basic": [
 								{
 									"key": "password",
-									"value": "securetarget",
+									"value": "{{password}}",
 									"type": "string"
 								},
 								{
 									"key": "username",
-									"value": "admin",
+									"value": "{{username}}",
 									"type": "string"
 								}
 							]
@@ -374,7 +374,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"Oksana\",\r\n    \"password\": \"testOksana\",\r\n    \"email\": \"oprokopieva382@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"login\": \"{{login}}\",\r\n    \"password\": \"{{userPassword}}\",\r\n    \"email\": \"{{userEmail}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -455,7 +455,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"testMe\",\r\n    \"password\": \"testOksana\"\r\n}",
+							"raw": "{\r\n    \"login\": \"{{login}}\",\r\n    \"password\": \"{{userPassword}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -521,7 +521,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"oprokopieva382@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"{{userEmail}}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -541,7 +541,7 @@
 					"response": []
 				},
 				{
-					"name": "signUpCinfirmation",
+					"name": "signUpConfirmation",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
