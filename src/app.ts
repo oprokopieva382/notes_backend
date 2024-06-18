@@ -6,13 +6,15 @@ import { SETTINGS } from "./settings";
 import { usersRouter } from "./features/users";
 import { notesRouter } from "./features/notes";
 import { authRouter } from "./features/auth";
-import { errorHandlerMiddleware } from "./middlewares";
+import { captureMetricsMiddleware, errorHandlerMiddleware } from "./middlewares";
 import { logger } from "./utils/logger";
+import {startMetricsServer} from "./utils/metrics"
 
 export const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+//app.use(captureMetricsMiddleware);
 app.use(SETTINGS.PATH.AUTH, authRouter);
 app.use(SETTINGS.PATH.USERS, usersRouter);
 app.use(SETTINGS.PATH.NOTES, notesRouter);
@@ -24,3 +26,4 @@ app.get("/", (req, res) => {
 });
 
 logger.info("Server started");
+startMetricsServer()

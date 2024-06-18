@@ -1,4 +1,5 @@
 export { errorHandlerMiddleware } from "./errorHandlerMiddleware";
+export { captureMetricsMiddleware } from "./captureMetricsMiddleware";
 export { isAdminMiddleware } from "./isAdminMiddleware";
 export { isAuthorizedMiddleware } from "./isAuthorizedMiddleware";
 export { validateRefreshToken } from "./validateRefreshToken";
