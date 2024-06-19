@@ -418,14 +418,15 @@ export const authRouter = Router();
  *                   data: {}
  *                   message: "Validation failed"
  *                   errors: [{message: "Email must be a valid email address", field: "email"}]
- */
-authRouter.post("/login", validateLoginInputs, authController.login);
-authRouter.post("/logout", validateRefreshToken, authController.logout);
-authRouter.post("/sign-up", validateSignUpInputs, authController.signUp);
+*/
+authRouter.get("/me", isAuthorizedMiddleware, authController.me);
 authRouter.get(
   "/sign-up-email-confirmation/:code",
   authController.emailConfirmation
 );
+authRouter.post("/login", validateLoginInputs, authController.login);
+authRouter.post("/logout", validateRefreshToken, authController.logout);
+authRouter.post("/sign-up", validateSignUpInputs, authController.signUp);
 authRouter.post(
   "/sign-up-email-resending",
   validateEmailResending,
@@ -437,4 +438,3 @@ authRouter.post(
   authController.refreshToken
 );
 
-authRouter.get("/me", isAuthorizedMiddleware, authController.me);

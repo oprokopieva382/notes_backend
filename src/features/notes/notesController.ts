@@ -62,22 +62,6 @@ export const notesController = {
     }
   },
 
-  deleteNote: async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const noteToRemove = await notesService.removeNote(req.params.id);
-
-      if (!noteToRemove) {
-        throw ApiError.NotFoundError(i18next.t("404"), [
-          i18next.t("ns2:404_auth"),
-        ]);
-      }
-
-      formatResponse(res, 204, {}, "Note deleted successfully");
-    } catch (error) {
-      next(error);
-    }
-  },
-
   updateNote: async (
     req: Request<{ id: string }, {}, NoteInputModel>,
     res: Response,
@@ -93,6 +77,22 @@ export const notesController = {
       }
 
       formatResponse(res, 201, noteDTO(result), "Note updated successfully");
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  deleteNote: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const noteToRemove = await notesService.removeNote(req.params.id);
+
+      if (!noteToRemove) {
+        throw ApiError.NotFoundError(i18next.t("404"), [
+          i18next.t("ns2:404_auth"),
+        ]);
+      }
+
+      formatResponse(res, 204, {}, "Note deleted successfully");
     } catch (error) {
       next(error);
     }
