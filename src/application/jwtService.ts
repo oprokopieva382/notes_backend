@@ -1,9 +1,9 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { randomUUID } from "crypto";
 import { SETTINGS } from "../settings";
-import { InterfaceJwtService } from "./InterfaceJwtService";
+import { IJwtService } from "../interfaces/IJwtService";
 
-export class JwtService implements InterfaceJwtService {
+export class JwtService implements IJwtService {
   async generateAccessToken(userId: string): Promise<{ accessToken: string }> {
     const rString = randomUUID();
     const aToken = jwt.sign(

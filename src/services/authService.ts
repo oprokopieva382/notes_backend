@@ -1,15 +1,14 @@
 import { ObjectId } from "mongodb";
 import { randomUUID } from "crypto";
 import { add } from "date-fns/add";
-import { bcryptService } from "./bcryptService";
+import i18next from "../i18n";
 import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
 import { ApiError } from "../helper/api_error";
 import { UserLoginModel, UserSignUpModel } from "../models";
 import { authRepository, usersRepository } from "../repositories";
-import { emailAdapter } from "../adapters";
 import { SETTINGS } from "./../settings";
 import { jwtService } from "../application";
-import i18next from "../i18n";
+import { bcryptService, emailService } from ".";
 
 export const authService = {
   async signUp(data: UserSignUpModel) {
@@ -43,7 +42,7 @@ export const authService = {
 
     await usersRepository.createUser(newUser);
 
-    await emailAdapter.sendEmail(
+    await emailService.sendEmail(
       email,
       `${SETTINGS.API_URL}auth/sign-up-email-confirmation/${code}`
     );
@@ -75,7 +74,7 @@ export const authService = {
     const newCode = randomUUID();
     await authRepository.updateConfirmationCode(user._id, newCode);
 
-    emailAdapter.sendEmail(data.email, newCode);
+    emailService.sendEmail(data.email, newCode);
 
     return user;
   },
