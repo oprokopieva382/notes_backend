@@ -7,6 +7,7 @@ import { jwtService } from "../../application";
 import { usersQuery } from "../../query_objects";
 import i18next from "../../i18n";
 
+
 export const authController = {
   signUp: async (req: Request, res: Response, next: NextFunction) => {
     try {

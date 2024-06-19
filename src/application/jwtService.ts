@@ -1,9 +1,10 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { randomUUID } from "crypto";
 import { SETTINGS } from "../settings";
+import { InterfaceJwtService } from "./InterfaceJwtService";
 
-export const jwtService = {
-  async generateAccessToken(userId: string) {
+export class JwtService implements InterfaceJwtService {
+  async generateAccessToken(userId: string): Promise<{ accessToken: string }> {
     const rString = randomUUID();
     const aToken = jwt.sign(
       { userId, rString },
@@ -15,21 +16,16 @@ export const jwtService = {
     return {
       accessToken: aToken,
     };
-  },
+  }
 
-  async generateRefreshToken(userId: string) {
+  async generateRefreshToken(userId: string): Promise<string> {
     const rString = randomUUID();
-    const rToken = jwt.sign(
-      { userId, rString },
-      SETTINGS.JWT_REFRESH_TOKEN_SECRET,
-      {
-        expiresIn: "1d",
-      }
-    );
-    return rToken;
-  },
+    return jwt.sign({ userId, rString }, SETTINGS.JWT_REFRESH_TOKEN_SECRET, {
+      expiresIn: "1d",
+    });
+  }
 
-  async getUserIdByAccessToken(token: string) {
+  async getUserIdByAccessToken(token: string): Promise<string | null> {
     try {
       const result = jwt.verify(
         token,
@@ -40,9 +36,9 @@ export const jwtService = {
     } catch (error) {
       return null;
     }
-  },
+  }
 
-  async getUserIdByRefreshToken(token: string) {
+  async getUserIdByRefreshToken(token: string): Promise<string | null> {
     try {
       const result = jwt.verify(
         token,
@@ -53,5 +49,5 @@ export const jwtService = {
     } catch (error) {
       return null;
     }
-  },
-};
+  }
+}
