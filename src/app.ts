@@ -40,4 +40,6 @@ app.get("/", (req, res) => {
 });
 
 logger.info("Server started");
-startMetricsServer();
+const metricsServer = startMetricsServer();
+
+export {metricsServer}

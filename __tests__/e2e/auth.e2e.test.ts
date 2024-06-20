@@ -4,7 +4,7 @@ import {
   notesCollection,
   usersCollection,
 } from "../../src/mongoDB";
-import { app } from "./../../src/app";
+import { app, metricsServer } from "./../../src/app";
 import { SETTINGS } from "../../src/settings";
 import { testManager } from "./test-helper";
 import { tokenBlackListCollection } from "../../src/mongoDB/mongo_db_atlas";
@@ -18,6 +18,10 @@ describe("auth tests", () => {
     await notesCollection.drop();
     await usersCollection.drop();
     await tokenBlackListCollection.drop();
+  });
+
+  afterAll(async () => {
+    metricsServer.close(() => {});
   });
 
   describe("LOGIN USER", () => {

@@ -26,7 +26,9 @@ export const startMetricsServer = () => {
     return res.send(await client.register.metrics());
   });
 
-  app.listen(9100, () => {
+  const metricsServer = app.listen(9100, () => {
     logger.info("Metrics server started at http://localhost:9100");
   });
+
+  return metricsServer
 };
