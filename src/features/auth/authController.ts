@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
+import i18next from "../../i18n";
 import { authService } from "../../services";
 import { formatResponse } from "../../utils/responseFormatter";
 import { ApiError } from "../../helper/api_error";
 import { userDTO } from "../../DTO/user_dto";
 import { jwtService } from "../../application";
 import { usersQuery } from "../../query_objects";
-import i18next from "../../i18n";
 
 export const authController = {
   me: async (req: Request, res: Response, next: NextFunction) => {

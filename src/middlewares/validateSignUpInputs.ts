@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
+import i18next from "../i18n";
 import {
   FieldValidationError,
   body,
   validationResult,
 } from "express-validator";
 import { ApiError } from "../helper/api_error";
-import i18next from "../i18n";
 
 export const validateSignUpInputs = async (
   req: Request,

@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from "express";
+import i18next from "../../i18n";
 import { notesQuery } from "../../query_objects";
 import { ApiError } from "../../helper/api_error";
 import { formatResponse } from "../../utils/responseFormatter";
 import { NoteInputModel, NoteViewModel } from "../../models";
 import { notesService } from "../../services";
 import { noteDTO } from "./../../DTO/note_dto";
-import i18next from "../../i18n";
 
 export const notesController = {
   getNotes: async (
