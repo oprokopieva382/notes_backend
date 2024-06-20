@@ -6,7 +6,7 @@ The Note Manager Backend is a RESTful API built with Node.js and Express.js. It 
 
 ## Features
 
-- **User Registration and Login**: Users can register and log in to the platform.
+- **User Registration through email confirmation and Login**: Users can register and log in to the platform.
 - **Email Confirmation**: New users receive an email confirmation through Nodemailer.
 - **JWT Authentication**: Secure authentication using access tokens and refresh tokens.
 - **CRUD Operations for Notes**: Users can create, read, update, and delete their project notes.
@@ -16,6 +16,8 @@ The Note Manager Backend is a RESTful API built with Node.js and Express.js. It 
 
 ## Technologies Used
 
+- **JavaScript**.
+- **TypeScript**: Typed superset of JavaScript.
 - **Node.js**: JavaScript runtime environment.
 - **Express.js**: Web framework for Node.js.
 - **MongoDB**: NoSQL database.
@@ -27,6 +29,8 @@ The Note Manager Backend is a RESTful API built with Node.js and Express.js. It 
 - **Prometheus**: For measure API performance
 - **Jest**: Testing framework.
 - **Supertest**: For testing HTTP endpoints.
+- **Redis**: For cashing user information.
+- **Winston**: Logger for logging.
 
 ## Project Structure
 
