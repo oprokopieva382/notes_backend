@@ -29,7 +29,7 @@ The Note Manager Backend is a RESTful API built with Node.js and Express.js. It 
 - **Prometheus**: For measure API performance
 - **Jest**: Testing framework.
 - **Supertest**: For testing HTTP endpoints.
-- **Redis**: For cashing user information.
+- **Redis**: For caching user information.
 - **Winston**: Logger for logging.
 
 ## Project Structure
