@@ -50,6 +50,7 @@ export const authController = {
       const refreshToken = await jwtService.generateRefreshToken(user.id);
 
       res.cookie("refreshToken", refreshToken, {
+        // domain: domain,
         httpOnly: true,
         secure: true,
       });

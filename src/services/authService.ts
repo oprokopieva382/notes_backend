@@ -46,8 +46,6 @@ export const authService = {
       email,
       `${SETTINGS.API_URL}auth/sign-up-email-confirmation/${code}`
     );
-
-    return newUser;
   },
 
   async confirmSignUp(code: string) {
@@ -75,8 +73,6 @@ export const authService = {
     await authRepository.updateConfirmationCode(user._id, newCode);
 
     emailService.sendEmail(data.email, newCode);
-
-    return user;
   },
 
   async login(data: UserLoginModel) {
@@ -122,6 +118,6 @@ export const authService = {
   },
 
   async logout(refreshToken: string) {
-    return await this.addTokenToBlackList(refreshToken);
+    await this.addTokenToBlackList(refreshToken);
   },
 };
