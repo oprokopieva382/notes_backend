@@ -1,8 +1,9 @@
 import nodemailer from "nodemailer";
 import { SETTINGS } from "../settings";
+import { IEmailService } from "../interfaces/IEmailService";
 
-export const emailAdapter = {
-  async sendEmail(email: string, link: string) {
+export class EmailService implements IEmailService {
+  async sendEmail(email: string, link: string): Promise<boolean> {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -22,5 +23,5 @@ export const emailAdapter = {
       `,
     });
     return !!emailInfo;
-  },
+  }
 };

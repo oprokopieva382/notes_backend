@@ -4,7 +4,7 @@ import {
   notesCollection,
   usersCollection,
 } from "../../src/mongoDB";
-import { app } from "./../../src/app";
+import { app, metricsServer } from "./../../src/app";
 import { SETTINGS } from "../../src/settings";
 import { testManager } from "./test-helper";
 
@@ -16,6 +16,10 @@ describe("notes tests", () => {
   afterEach(async () => {
     await notesCollection.drop();
     await usersCollection.drop();
+  });
+
+  afterAll(async () => {
+    metricsServer.close(() => {});
   });
 
   describe("CREATE NOTE", () => {

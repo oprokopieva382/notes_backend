@@ -1,23 +1,22 @@
 import { NextFunction, Request, Response } from "express";
+import i18next from "../../i18n";
 import { authService } from "../../services";
 import { formatResponse } from "../../utils/responseFormatter";
 import { ApiError } from "../../helper/api_error";
 import { userDTO } from "../../DTO/user_dto";
 import { jwtService } from "../../application";
 import { usersQuery } from "../../query_objects";
-import i18next from "../../i18n";
 
 export const authController = {
-  signUp: async (req: Request, res: Response, next: NextFunction) => {
+  me: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      await authService.signUp(req.body);
-
-      formatResponse(
-        res,
-        204,
-        {},
-        "User registered and email with confirmation link sent to email"
-      );
+      const me = await usersQuery.getUserById(req.userId);
+      if (!me) {
+        throw ApiError.UnauthorizedError(i18next.t("401"), [
+          i18next.t("ns2:401_auth"),
+        ]);
+      }
+      formatResponse(res, 200, me, "User authorized");
     } catch (error) {
       next(error);
     }
@@ -32,16 +31,6 @@ export const authController = {
       await authService.confirmSignUp(req.params.code);
 
       formatResponse(res, 204, {}, "User confirmation made successfully");
-    } catch (error) {
-      next(error);
-    }
-  },
-
-  emailResending: async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      await authService.emailResending(req.body);
-
-      formatResponse(res, 204, {}, "Registration link resent");
     } catch (error) {
       next(error);
     }
@@ -71,15 +60,38 @@ export const authController = {
     }
   },
 
-  me: async (req: Request, res: Response, next: NextFunction) => {
+  logout: async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const me = await usersQuery.getUserById(req.userId);
-      if (!me) {
-        throw ApiError.UnauthorizedError(i18next.t("401"), [
-          i18next.t("ns2:401_auth"),
-        ]);
-      }
-      formatResponse(res, 200, me, "User authorized");
+      const token = req.cookies.refreshToken;
+
+      await authService.logout(token);
+
+      formatResponse(res, 204, {}, "User logout successfully");
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  signUp: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await authService.signUp(req.body);
+
+      formatResponse(
+        res,
+        204,
+        {},
+        "User registered and email with confirmation link sent to email"
+      );
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  emailResending: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      await authService.emailResending(req.body);
+
+      formatResponse(res, 204, {}, "Registration link resent");
     } catch (error) {
       next(error);
     }
@@ -97,18 +109,6 @@ export const authController = {
       });
 
       formatResponse(res, 200, newAccessToken, "New access token sent");
-    } catch (error) {
-      next(error);
-    }
-  },
-
-  logout: async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const token = req.cookies.refreshToken;
-
-      await authService.logout(token);
-
-      formatResponse(res, 204, {}, "User logout successfully");
     } catch (error) {
       next(error);
     }

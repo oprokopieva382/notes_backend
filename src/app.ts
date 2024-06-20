@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
+import responseTime from "response-time";
 import swaggerUi from "swagger-ui-express";
 import specs from "./swaggerConfig";
 import { SETTINGS } from "./settings";
@@ -9,7 +10,6 @@ import { authRouter } from "./features/auth";
 import { errorHandlerMiddleware } from "./middlewares";
 import { logger } from "./utils/logger";
 import { restResponseTimeHistogram, startMetricsServer } from "./utils/metrics";
-import responseTime from "response-time";
 
 export const app = express();
 
@@ -40,4 +40,6 @@ app.get("/", (req, res) => {
 });
 
 logger.info("Server started");
-startMetricsServer();
+const metricsServer = startMetricsServer();
+
+export {metricsServer}

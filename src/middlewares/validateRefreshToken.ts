@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
+import i18next from "../i18n";
 import { tokenBlackListCollection } from "../mongoDB/mongo_db_atlas";
 import { jwtService } from "../application";
 import { ApiError } from "../helper/api_error";
 import { usersQuery } from "../query_objects";
-import i18next from "../i18n";
 
 export const validateRefreshToken = async (
   req: Request,
