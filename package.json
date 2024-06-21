@@ -13,7 +13,10 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write --ignore-unknown",
+      "git add"
+    ]
   },
   "dependencies": {
     "@types/i18next": "^13.0.0",
