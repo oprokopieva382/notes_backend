@@ -9,20 +9,11 @@ export const isAdminMiddleware = (
   next: NextFunction,
 ) => {
   const auth = req.headers["authorization"] as string;
-       if (!auth) {
+  if (!auth) {
     throw ApiError.UnauthorizedError(i18next.t("401"), [
       i18next.t("ns2:401_admin"),
     ]);
   }
-
-
-
-
-
-
-
-
-
 
   //   const bufEncoded = Buffer.from(auth.slice(6), "base64");
   //   const decodedAuth = bufEncoded.toString("utf8");

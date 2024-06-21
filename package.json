@@ -7,22 +7,13 @@
   "author": "Oksana(KsyFate) <oprokopieva382@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "postinstall": "husky",
-    "format": "prettier --write",
-    "lint-staged": "lint-staged",
     "dev": "yarn nodemon --inspect dist/index.js",
     "watch": "tsc -w",
-    "test": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/.*..e2e.test.ts"
+    "test": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/.*..e2e.test.ts",
+    "prepare": "husky"
   },
   "lint-staged": {
-    "**/*": [
-      "yarn format"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit":  ".husky/_/pre-commit"
-    }
+    "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@types/i18next": "^13.0.0",
