@@ -42,10 +42,10 @@ export const authService = {
 
     await usersRepository.createUser(newUser);
 
-    await emailService.sendEmail(
+    await emailService.sendEmail({
       email,
-      `${SETTINGS.API_URL}auth/sign-up-email-confirmation/${code}`,
-    );
+      confirmationLink: `${SETTINGS.API_URL}auth/sign-up-email-confirmation/${code}`,
+    });
   },
 
   async confirmSignUp(code: string) {
@@ -72,7 +72,10 @@ export const authService = {
     const newCode = randomUUID();
     await authRepository.updateConfirmationCode(user._id, newCode);
 
-    emailService.sendEmail(data.email, newCode);
+    emailService.sendEmail({
+      email: data.email,
+      confirmationLink: `${SETTINGS.API_URL}auth/sign-up-email-confirmation/${newCode}`,
+    });
   },
 
   async login(data: UserLoginModel) {
