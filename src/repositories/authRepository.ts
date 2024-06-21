@@ -1,5 +1,5 @@
-import { ObjectId } from "mongodb";
-import { UserMongoDBType, usersCollection } from "../mongoDB";
+import { ObjectId } from 'mongodb';
+import { UserMongoDBType, usersCollection } from '../mongoDB';
 
 export const authRepository = {
   async findUserByEmail(email: string): Promise<UserMongoDBType | null> {
@@ -18,7 +18,7 @@ export const authRepository = {
 
   async findUserByCode(code: string): Promise<UserMongoDBType | null> {
     const user = await usersCollection.findOne({
-      "emailConfirmation.confirmationCode": code,
+      'emailConfirmation.confirmationCode': code,
     });
     return user ? user : null;
   },
@@ -26,15 +26,15 @@ export const authRepository = {
   async confirmUser(id: ObjectId): Promise<UserMongoDBType | null> {
     return await usersCollection.findOneAndUpdate(
       { _id: id },
-      { $set: { "emailConfirmation.isConfirmed": true } },
-      { returnDocument: "after" },
+      { $set: { 'emailConfirmation.isConfirmed': true } },
+      { returnDocument: 'after' },
     );
   },
 
   async updateConfirmationCode(id: ObjectId, code: string): Promise<Boolean> {
     const user = await usersCollection.updateOne(
       { _id: id },
-      { $set: { "emailConfirmation.confirmationCode": code } },
+      { $set: { 'emailConfirmation.confirmationCode': code } },
     );
     return !!user.modifiedCount;
   },
