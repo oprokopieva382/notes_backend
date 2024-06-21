@@ -11,7 +11,7 @@ export class JwtService implements IJwtService {
       SETTINGS.JWT_ACCESS_TOKEN_SECRET,
       {
         expiresIn: "1h",
-      }
+      },
     );
     return {
       accessToken: aToken,
@@ -29,7 +29,7 @@ export class JwtService implements IJwtService {
     try {
       const result = jwt.verify(
         token,
-        SETTINGS.JWT_ACCESS_TOKEN_SECRET
+        SETTINGS.JWT_ACCESS_TOKEN_SECRET,
       ) as JwtPayload;
 
       return result.userId;
@@ -42,7 +42,7 @@ export class JwtService implements IJwtService {
     try {
       const result = jwt.verify(
         token,
-        SETTINGS.JWT_REFRESH_TOKEN_SECRET
+        SETTINGS.JWT_REFRESH_TOKEN_SECRET,
       ) as JwtPayload;
 
       return result.userId;

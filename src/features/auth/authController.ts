@@ -25,7 +25,7 @@ export const authController = {
   emailConfirmation: async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     try {
       await authService.confirmSignUp(req.params.code);
@@ -81,7 +81,7 @@ export const authController = {
         res,
         204,
         {},
-        "User registered and email with confirmation link sent to email"
+        "User registered and email with confirmation link sent to email",
       );
     } catch (error) {
       next(error);

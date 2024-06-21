@@ -24,4 +24,4 @@ export class EmailService implements IEmailService {
     });
     return !!emailInfo;
   }
-};
+}

@@ -11,7 +11,7 @@ export const usersController = {
   getUsers: async (
     req: Request,
     res: Response<UserViewModel>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     try {
       const result = await usersQuery.getUsers();
@@ -29,7 +29,7 @@ export const usersController = {
   createUser: async (
     req: Request<{}, {}, UserSignUpModel>,
     res: Response<UserViewModel>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     try {
       const result = await usersService.createUser(req.body);

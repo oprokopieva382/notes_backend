@@ -11,7 +11,7 @@ export const notesController = {
   getNotes: async (
     req: Request,
     res: Response<NoteViewModel>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     try {
       const result = await notesQuery.getNotes();
@@ -29,7 +29,7 @@ export const notesController = {
   getNoteById: async (
     req: Request,
     res: Response<NoteViewModel>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     try {
       const result = await notesQuery.getNoteById(req.params.id);
@@ -47,7 +47,7 @@ export const notesController = {
   createNote: async (
     req: Request<{}, {}, NoteInputModel>,
     res: Response<NoteViewModel>,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     try {
       const result = await notesService.createNote(req.body, req.userId);
@@ -65,7 +65,7 @@ export const notesController = {
   updateNote: async (
     req: Request<{ id: string }, {}, NoteInputModel>,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     try {
       const result = await notesService.updateNote(req.params.id, req.body);

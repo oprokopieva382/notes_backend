@@ -455,12 +455,12 @@ notesRouter.post(
   "/",
   isAuthorizedMiddleware,
   validateNoteInputs,
-  notesController.createNote
+  notesController.createNote,
 );
 notesRouter.put(
   "/:id",
   isAuthorizedMiddleware,
   validateNoteInputs,
-  notesController.updateNote
+  notesController.updateNote,
 );
 notesRouter.delete("/:id", isAuthorizedMiddleware, notesController.deleteNote);

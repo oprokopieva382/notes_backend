@@ -26,7 +26,7 @@ export const ConnectMongoDB = async () => {
     usersCollection = db.collection(SETTINGS.USERS_COLLECTION);
     notesCollection = db.collection(SETTINGS.NOTES_COLLECTION);
     tokenBlackListCollection = db.collection(
-      SETTINGS.BLACK_LIST_TOKEN_COLLECTION
+      SETTINGS.BLACK_LIST_TOKEN_COLLECTION,
     );
 
     return true;
