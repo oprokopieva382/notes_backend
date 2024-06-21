@@ -9,18 +9,19 @@
   "scripts": {
     "dev": "yarn nodemon --inspect dist/index.js",
     "watch": "tsc -w",
-    "runTest": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/.*..e2e.test.ts",
-    "postinstall": "husky"
+    "test": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/.*..e2e.test.ts",
+    "postinstall": "husky",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write",
+      "yarn format",
       "git add"
     ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": ".husky/_/pre-commit"
     }
   },
   "dependencies": {
