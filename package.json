@@ -11,7 +11,8 @@
     "watch": "tsc -w",
     "test": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/.*..e2e.test.ts",
     "prepare": "husky",
-    "format": "prettier . --write"
+    "prettify": "prettier . --write",
+    "prettier-check": "prettier . --check"
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
