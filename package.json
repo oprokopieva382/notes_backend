@@ -8,12 +8,22 @@
   "license": "MIT",
   "scripts": {
     "postinstall": "husky",
+    "format": "prettier . --write",
+    "lint-staged": "lint-staged",
     "dev": "yarn nodemon --inspect dist/index.js",
     "watch": "tsc -w",
-    "runTest": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/.*..e2e.test.ts"
+    "test": "jest -i --detectOpenHandles --no-cache --watchAll --testPathPattern=__tests__/e2e/.*..e2e.test.ts"
   },
-   "lint-staged": {
-    "src/**/*": "prettier --write ."
+  "lint-staged": {
+    "**/*": [
+      "yarn lint",
+      "yarn format"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged"
+    }
   },
   "dependencies": {
     "@types/i18next": "^13.0.0",
