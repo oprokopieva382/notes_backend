@@ -9,9 +9,11 @@ export const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  logger.error(`Error: ${err.message}`);
+  logger.error(`${err.message}`);
+  
   if (err instanceof ApiError) {
     return formatResponse(res, err.status, {}, err.message, err.errors);
   }
-  return formatResponse(res, 500, {}, "Internal Server Error", [err.message]);
+
+      return formatResponse(res, 500, {}, "Internal Server Error", [err.message]);
 };
