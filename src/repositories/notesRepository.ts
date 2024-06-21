@@ -15,12 +15,12 @@ export const notesRepository = {
 
   async updateNote(
     noteId: string,
-    inputsData: NoteInputModel
+    inputsData: NoteInputModel,
   ): Promise<NoteMongoDBType | null> {
     return await notesCollection.findOneAndUpdate(
       { _id: new ObjectId(noteId) },
       { $set: { ...inputsData } },
-      { returnDocument: "after" }
+      { returnDocument: "after" },
     );
   },
 };

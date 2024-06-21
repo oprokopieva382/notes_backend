@@ -258,6 +258,6 @@ usersRouter.post(
   "/",
   isAdminMiddleware,
   validateSignUpInputs,
-  usersController.createUser
+  usersController.createUser,
 );
 usersRouter.delete("/:id", isAdminMiddleware, usersController.deleteUser);

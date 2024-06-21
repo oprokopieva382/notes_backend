@@ -3,7 +3,7 @@ import error from "./locales/en/error.json";
 import errorMessage from "./locales/en/error-message.json";
 
 i18next.init({
-  debug: true, 
+  debug: true,
   fallbackLng: "en", // Default language if no language detected
   defaultNS: "ns1",
   resources: {

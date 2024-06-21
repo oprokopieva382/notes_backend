@@ -8,7 +8,7 @@ import redisClient from "../redisClient";
 export const isAuthorizedMiddleware = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     if (!req.headers.authorization) {

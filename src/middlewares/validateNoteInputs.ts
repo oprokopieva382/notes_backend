@@ -10,7 +10,7 @@ import { ApiError } from "../helper/api_error";
 export const validateNoteInputs = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const allBodyValidation: any[] = [];
@@ -25,7 +25,7 @@ export const validateNoteInputs = async (
         .isLength({ max: 35 })
         .withMessage(i18next.t("ns2:400_title_max"))
         .isLength({ min: 5 })
-        .withMessage(i18next.t("ns2:400_title_min"))
+        .withMessage(i18next.t("ns2:400_title_min")),
     );
 
     await Promise.all(allBodyValidation.map((item) => item.run(req)));
@@ -40,7 +40,7 @@ export const validateNoteInputs = async (
         errorMessages.map((error) => ({
           message: error.msg,
           field: error.path,
-        }))
+        })),
       );
     }
 

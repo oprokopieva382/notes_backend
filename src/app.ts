@@ -24,10 +24,10 @@ app.use(
           route: req.route.path,
           status_code: res.statusCode,
         },
-        time * 1000
+        time * 1000,
       );
     }
-  })
+  }),
 );
 app.use(SETTINGS.PATH.AUTH, authRouter);
 app.use(SETTINGS.PATH.USERS, usersRouter);
@@ -42,4 +42,4 @@ app.get("/", (req, res) => {
 logger.info("Server started");
 const metricsServer = startMetricsServer();
 
-export {metricsServer}
+export { metricsServer };

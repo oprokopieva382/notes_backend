@@ -6,7 +6,7 @@ import { SETTINGS } from "../settings";
 export const isAdminMiddleware = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const auth = req.headers["authorization"] as string;
   if (!auth) {
@@ -14,6 +14,9 @@ export const isAdminMiddleware = (
       i18next.t("ns2:401_admin"),
     ]);
   }
+
+
+  
 
   //   const bufEncoded = Buffer.from(auth.slice(6), "base64");
   //   const decodedAuth = bufEncoded.toString("utf8");

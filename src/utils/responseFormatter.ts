@@ -12,7 +12,7 @@ export const formatResponse = <T>(
   status: number,
   data: T | {},
   message: string = "",
-  errors: any[] = []
+  errors: any[] = [],
 ): Response<ResponseDataType<T>> => {
   const responseObject: ResponseDataType<T> = {
     status,

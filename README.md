@@ -39,6 +39,7 @@ The Note Manager Backend is a RESTful API built with Node.js and Express.js. It 
 - **DAL (Data Access Layer)**: Manages database interactions.
 
 ## Used Coding Principals
+
 ✔️ SOLID
 ✔️ DRY
 ✔️ KISS
@@ -54,6 +55,7 @@ The Note Manager Backend is a RESTful API built with Node.js and Express.js. It 
 Create a `.env` file in the root of your project and add the necessary environment variables. Below is an example template:
 
 # .env.template
+
 ```plaintext
 PORT=5000
 MONGO_DB_ATLAS=mongodb+srv://<your_username>:<your_password>@<your_cluster-url>/?retryWrites=true&w=majority&appName=<your_appname>
@@ -69,17 +71,22 @@ JWT_REFRESH_TOKEN_SECRET=your_refresh_token_secret
 BLACK_LIST_TOKEN_COLLECTION=tokenBlackList
 VERSION=1.0.0
 ```
+
 ### Installation
+
 1. `git clone git@github.com:oprokopieva382/notes_backend.git`
 2. `yarn install`
 3. In one terminal, run: `yarn watch`
 4. In a second terminal, run: `yarn dev`
 
 ### Test
+
 run in terminal `yarn test`
 
 ## License
+
 Please refer to the LICENSE in the repo.
 
 ## Questions
+
 If you have any questions find me on [GitHub](https://github.com/oprokopieva382) or feel free email me oprokopieva382@gmail.com

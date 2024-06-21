@@ -44,7 +44,7 @@ export const authService = {
 
     await emailService.sendEmail(
       email,
-      `${SETTINGS.API_URL}auth/sign-up-email-confirmation/${code}`
+      `${SETTINGS.API_URL}auth/sign-up-email-confirmation/${code}`,
     );
   },
 
@@ -86,7 +86,7 @@ export const authService = {
 
     const verifyPassword = await bcryptService.verifyPassword(
       data.password,
-      user.password
+      user.password,
     );
 
     if (!verifyPassword) {

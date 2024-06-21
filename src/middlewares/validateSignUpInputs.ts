@@ -10,7 +10,7 @@ import { ApiError } from "../helper/api_error";
 export const validateSignUpInputs = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const allBodyValidation: any[] = [];
@@ -25,7 +25,7 @@ export const validateSignUpInputs = async (
         .isLength({ max: 15 })
         .withMessage(i18next.t("ns2:400_login_max"))
         .isLength({ min: 5 })
-        .withMessage(i18next.t("ns2:400_login_max"))
+        .withMessage(i18next.t("ns2:400_login_max")),
     );
 
     allBodyValidation.push(
@@ -38,7 +38,7 @@ export const validateSignUpInputs = async (
         .isLength({ max: 20 })
         .withMessage(i18next.t("ns2:400_password_max"))
         .isLength({ min: 6 })
-        .withMessage(i18next.t("ns2:400_password_min"))
+        .withMessage(i18next.t("ns2:400_password_min")),
     );
 
     allBodyValidation.push(
@@ -49,7 +49,7 @@ export const validateSignUpInputs = async (
         .notEmpty()
         .withMessage(i18next.t("ns2:400_field_required"))
         .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
-        .withMessage(i18next.t("ns2:400_field_invalid"))
+        .withMessage(i18next.t("ns2:400_field_invalid")),
     );
 
     await Promise.all(allBodyValidation.map((item) => item.run(req)));
@@ -64,7 +64,7 @@ export const validateSignUpInputs = async (
         errorMessages.map((error) => ({
           message: error.msg,
           field: error.path,
-        }))
+        })),
       );
     }
 

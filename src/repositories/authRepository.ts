@@ -27,14 +27,14 @@ export const authRepository = {
     return await usersCollection.findOneAndUpdate(
       { _id: id },
       { $set: { "emailConfirmation.isConfirmed": true } },
-      { returnDocument: "after" }
+      { returnDocument: "after" },
     );
   },
 
   async updateConfirmationCode(id: ObjectId, code: string): Promise<Boolean> {
     const user = await usersCollection.updateOne(
       { _id: id },
-      { $set: { "emailConfirmation.confirmationCode": code } }
+      { $set: { "emailConfirmation.confirmationCode": code } },
     );
     return !!user.modifiedCount;
   },

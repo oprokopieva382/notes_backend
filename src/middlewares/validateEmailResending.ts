@@ -10,7 +10,7 @@ import { ApiError } from "../helper/api_error";
 export const validateEmailResending = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const allBodyValidation: any[] = [];
@@ -23,7 +23,7 @@ export const validateEmailResending = async (
         .notEmpty()
         .withMessage(i18next.t("ns2:400_field_required"))
         .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)
-        .withMessage(i18next.t("ns2:400_field_invalid"))
+        .withMessage(i18next.t("ns2:400_field_invalid")),
     );
 
     await Promise.all(allBodyValidation.map((item) => item.run(req)));
@@ -38,7 +38,7 @@ export const validateEmailResending = async (
         errorMessages.map((error) => ({
           message: error.msg,
           field: error.path,
-        }))
+        })),
       );
     }
 

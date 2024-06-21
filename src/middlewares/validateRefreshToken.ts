@@ -8,7 +8,7 @@ import { usersQuery } from "../query_objects";
 export const validateRefreshToken = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const token = req.cookies.refreshToken;

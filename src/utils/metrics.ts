@@ -30,5 +30,5 @@ export const startMetricsServer = () => {
     logger.info("Metrics server started at http://localhost:9100");
   });
 
-  return metricsServer
+  return metricsServer;
 };
