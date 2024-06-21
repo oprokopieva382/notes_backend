@@ -1,11 +1,11 @@
-import { Collection, Db, MongoClient } from "mongodb";
+import { Collection, Db, MongoClient } from 'mongodb';
 import {
   NoteMongoDBType,
   TokenMongoDBType,
   UserMongoDBType,
-} from "./mongo_db_types";
-import { SETTINGS } from "../settings";
-import { logger } from "../utils/logger";
+} from './mongo_db_types';
+import { SETTINGS } from '../settings';
+import { logger } from '../utils/logger';
 
 let client: MongoClient = {} as MongoClient;
 export let db: Db = {} as Db;
@@ -20,7 +20,7 @@ export const ConnectMongoDB = async () => {
   try {
     client = new MongoClient(SETTINGS.MONGO_DB_ATLAS);
     await client.connect();
-    logger.info("Connected to MongoDB Atlas");
+    logger.info('Connected to MongoDB Atlas');
 
     db = client.db(SETTINGS.DB_NAME);
     usersCollection = db.collection(SETTINGS.USERS_COLLECTION);
