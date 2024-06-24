@@ -1,9 +1,13 @@
 import nodemailer from "nodemailer";
 import { SETTINGS } from "../settings";
-import { IEmailService } from "../interfaces/IEmailService";
+import {
+  IEmailService,
+  SendEmailType,
+  UnsubscribeType,
+} from "../interfaces/IEmailService";
 
 export class EmailService implements IEmailService {
-  async sendEmail(email: string, link: string): Promise<boolean> {
+  async sendEmail(params: SendEmailType): Promise<boolean> {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -14,14 +18,19 @@ export class EmailService implements IEmailService {
 
     const emailInfo = transporter.sendMail({
       from: `"Notes Manager" <${SETTINGS.REGISTRATION_EMAIL}>`,
-      to: email,
+      to: params.email,
       subject: "Action Required - Confirm your email address",
       html: `
         <h1>Thank you for your registration with Notes Manager</h1>
         <p>To finish your registration with Notes Manager use this link:
-        <a href="${link}">${link}</a></p>
+        <a href="${params.confirmationLink}">${params.confirmationLink}</a></p>
       `,
     });
     return !!emailInfo;
+  }
+
+  //just as example
+  async unsubscribe(params: UnsubscribeType): Promise<boolean> {
+    return true;
   }
 }
