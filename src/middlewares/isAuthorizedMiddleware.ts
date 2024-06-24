@@ -3,7 +3,6 @@ import i18next from "../i18n";
 import { jwtService } from "../application";
 import { ApiError } from "../helper/api_error";
 import { usersQuery } from "../query_objects";
-import redisClient from "../redisClient";
 
 export const isAuthorizedMiddleware = async (
   req: Request,
