@@ -1,29 +1,26 @@
 import redisClient from "../redisClient";
 
-export const cache =
-  (keyGenerator: (...args: any[]) => string, ttl: number = 3600) =>
-  (target: any, propertyName: string, descriptor: PropertyDescriptor) => {
-    //save original method
-    const originalMethod = descriptor.value;
+export function cache(
+  keyGenerator: (...args: any[]) => string,
+  ttl: number = 3600,
+) {
+  return function (_: any, __: string, descriptor: PropertyDescriptor) {
+    let method = descriptor.value;
 
-    descriptor.value = async (...args: any[]) => {
-      //generate the cache key
+    descriptor.value = async function (...args: any[]) {
       const cacheKey = keyGenerator(...args);
-      //check redis for key
       const cachedResult = await redisClient.get(cacheKey);
 
-      //return result from redis
       if (cachedResult) {
         return JSON.parse(cachedResult);
       }
 
-      //use original method
-      const result = await originalMethod.apply(this, args);
-
-      //cache result in redis
+      const result = await method.apply(this, args);
       await redisClient.set(cacheKey, JSON.stringify(result), { EX: ttl });
 
       return result;
     };
+
     return descriptor;
   };
+}

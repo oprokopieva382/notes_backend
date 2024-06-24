@@ -27,21 +27,12 @@ export const isAuthorizedMiddleware = async (
       ]);
     }
 
-    let authorizedUser;
-    const cachedUser = await redisClient.get(`user:${userId}`);
+    const authorizedUser = await usersQuery.getUserById(userId);
 
-    if (!cachedUser) {
-      authorizedUser = await usersQuery.getUserById(userId);
-      if (!authorizedUser) {
-        throw ApiError.UnauthorizedError(i18next.t("401"), [
-          i18next.t("ns2:401_auth"),
-        ]);
-      }
-      await redisClient.set(`user:${userId}`, JSON.stringify(authorizedUser), {
-        EX: 3600, // Cache for 1 hour
-      });
-    } else {
-      authorizedUser = JSON.parse(cachedUser);
+    if (!authorizedUser) {
+      throw ApiError.UnauthorizedError(i18next.t("401"), [
+        i18next.t("ns2:401_auth"),
+      ]);
     }
 
     req.userId = authorizedUser.id;
