@@ -26,6 +26,7 @@ export const isAuthorizedMiddleware = async (
       ]);
     }
 
+    //getting authorizedUser from cache or DB
     const authorizedUser = await usersQuery.getUserById(userId);
 
     if (!authorizedUser) {
